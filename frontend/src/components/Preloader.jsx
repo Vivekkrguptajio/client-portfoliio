@@ -31,7 +31,7 @@ export default function Preloader({ onComplete }) {
     >
       <img 
         src={gifSrc} 
-        alt="Loading..." 
+        alt="" 
         className={`w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] md:w-[650px] md:h-[650px] object-contain select-none transition-transform duration-1000 ease-in-out ${
           fadeExit ? 'scale-95' : 'scale-100'
         }`}
