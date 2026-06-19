@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Welcome from './components/Welcome'
 import About from './components/About'
+import Toolkit from './components/Toolkit'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -40,7 +41,7 @@ function App() {
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-white overflow-x-hidden font-sans">
+    <div className="relative min-h-screen bg-white overflow-x-clip font-sans">
       
       {/* ═══════ PRELOADER ═══════ */}
       {loading && <Preloader onComplete={() => setLoading(false)} />}
@@ -53,6 +54,7 @@ function App() {
         <Hero />
         <Welcome />
         <About />
+        <Toolkit />
         <Projects />
         <Contact />
         <Footer />

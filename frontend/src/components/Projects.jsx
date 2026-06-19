@@ -1,116 +1,192 @@
+import { useRef, useEffect, useState } from 'react'
+
 export default function Projects() {
+  const sectionRef = useRef(null)
+  const trackRef = useRef(null)
+  const [translateX, setTranslateX] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !trackRef.current) return
+
+      const section = sectionRef.current
+      const track = trackRef.current
+      const rect = section.getBoundingClientRect()
+      const sectionHeight = section.offsetHeight
+      const windowHeight = window.innerHeight
+
+      // How far into the section we've scrolled
+      const scrolled = -rect.top
+      const totalScroll = sectionHeight - windowHeight
+
+      if (totalScroll <= 0) return
+
+      const progress = Math.min(Math.max(scrolled / totalScroll, 0), 1)
+      setScrollProgress(progress)
+
+      // Calculate horizontal translation
+      const trackWidth = track.scrollWidth
+      const containerWidth = track.parentElement.offsetWidth
+      const maxTranslate = Math.max(0, trackWidth - containerWidth)
+
+      setTranslateX(progress * maxTranslate)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // initial call
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const projects = [
+    {
+      title: 'Sattuz — Organic Brand Voice',
+      category: 'Brand Identity',
+      description: 'Designing a brand identity that embodies the earthy, organic essence of traditional sattu-based nutrition for modern consumers.',
+      bgGradient: 'from-amber-50 to-orange-100',
+      tagBg: 'bg-amber-100 text-amber-700',
+      hoverColor: 'group-hover:text-amber-700',
+      iconBg: 'bg-amber-200 text-amber-800',
+      iconLetter: 'S',
+      brandName: 'Sattuz',
+      barColors: ['bg-amber-50', 'bg-amber-50'],
+      gridColors: ['bg-amber-100/50', 'bg-amber-100/50', 'bg-amber-100/50'],
+    },
+    {
+      title: 'GutNut — Health & Wellness',
+      category: 'Brand Design',
+      description: 'Crafting a playful yet trustworthy brand identity for a gut-health nutrition brand, emphasizing natural ingredients and well-being.',
+      bgGradient: 'from-green-50 to-emerald-100',
+      tagBg: 'bg-green-100 text-green-700',
+      hoverColor: 'group-hover:text-green-700',
+      iconBg: 'bg-green-200 text-green-800',
+      iconLetter: 'G',
+      brandName: 'GutNut',
+      barColors: ['bg-green-50', 'bg-green-50'],
+      gridColors: ['bg-green-100/50'],
+    },
+    {
+      title: 'Denotation Design — Interior Identity',
+      category: 'Interior Identity',
+      description: 'Shaping a sophisticated visual identity for an interior design studio, blending minimalism with spatial awareness in every touchpoint.',
+      bgGradient: 'from-slate-50 to-gray-200',
+      tagBg: 'bg-gray-200 text-gray-700',
+      hoverColor: 'group-hover:text-gray-600',
+      isDark: true,
+    },
+    {
+      title: 'Heritage for Children',
+      category: 'Interactive Experience',
+      description: 'Bringing history alive through interactive design — making cultural heritage accessible and engaging for young minds through playful interfaces.',
+      bgGradient: 'from-rose-50 to-purple-100',
+      tagBg: 'bg-purple-100 text-purple-700',
+      hoverColor: 'group-hover:text-purple-700',
+      iconBg: 'bg-purple-200 text-purple-800',
+      iconLetter: 'H',
+      brandName: 'Heritage',
+      barColors: ['bg-gray-100'],
+      gridColors: ['bg-purple-50', 'bg-rose-50'],
+    },
+  ]
+
   return (
-    <section id="projects" className="w-full bg-white text-black py-16 md:py-28 px-5 md:px-20">
-      <div className="max-w-6xl mx-auto">
+    <section
+      ref={sectionRef}
+      id="projects"
+      style={{ height: '500vh' }}
+      className="relative w-full bg-white"
+    >
+      {/* Sticky container */}
+      <div className="sticky top-0 h-screen flex flex-col justify-start pt-24 md:pt-32 overflow-hidden">
         
         {/* Section Header */}
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            <span className="font-light">Featured </span>
-            <span className="font-bold">Projects</span>
-          </h2>
-          <p className="text-gray-500 mt-4 text-base md:text-lg max-w-xl">
-            A curated selection of design work spanning brand identity, digital interfaces, and interactive experiences.
-          </p>
-        </div>
+        <div className="w-full px-5 md:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-8 md:mb-10">
+              <h2 className="text-4xl md:text-5xl font-bold">
+                <span className="font-light">Featured </span>
+                <span className="font-bold">Projects</span>
+              </h2>
+              <p className="text-gray-500 mt-3 text-base md:text-lg max-w-xl">
+                A curated selection of design work spanning brand identity, digital interfaces, and interactive experiences.
+              </p>
+            </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          
-          {/* Project 1 - Sattuz */}
-          <div className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500">
-            <div className="aspect-[4/3] w-full bg-gradient-to-br from-amber-50 to-orange-100 relative flex items-center justify-center p-8 overflow-hidden">
-              <div className="w-10/12 h-4/5 bg-white rounded-xl shadow-md p-5 transform group-hover:scale-105 group-hover:rotate-1 transition-all duration-500 flex flex-col justify-between border border-gray-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center text-amber-800 font-bold text-xs">S</div>
-                  <span className="text-sm font-bold text-gray-800">Sattuz</span>
-                </div>
-                <div className="space-y-2 mt-auto">
-                  <div className="w-full h-3 bg-amber-50 rounded"></div>
-                  <div className="w-3/4 h-3 bg-amber-50 rounded"></div>
-                  <div className="grid grid-cols-3 gap-2 mt-2">
-                    <div className="h-12 bg-amber-100/50 rounded"></div>
-                    <div className="h-12 bg-amber-100/50 rounded"></div>
-                    <div className="h-12 bg-amber-100/50 rounded"></div>
+            {/* Horizontal scrolling track */}
+            <div
+              ref={trackRef}
+              className="flex gap-8 transition-transform duration-100 ease-out will-change-transform w-max"
+              style={{ transform: `translateX(-${Math.max(0, translateX)}px)` }}
+            >
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 flex-shrink-0"
+                  style={{ width: '480px' }}
+                >
+                  {/* Card Image Area */}
+                  <div className={`aspect-[4/3] w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center p-8 overflow-hidden`}>
+                    {project.isDark ? (
+                      <div className="w-10/12 h-4/5 bg-neutral-900 rounded-xl shadow-md p-5 transform group-hover:scale-105 transition-all duration-500 flex flex-col justify-between border border-neutral-800 text-white">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold tracking-widest text-neutral-400">DENOTATION</span>
+                          <div className="w-4 h-4 rounded-full bg-white"></div>
+                        </div>
+                        <div className="space-y-2 mt-auto">
+                          <div className="w-full h-3 bg-neutral-800 rounded"></div>
+                          <div className="w-1/2 h-3 bg-neutral-800 rounded"></div>
+                          <div className="h-6 bg-white/10 rounded mt-2 border border-white/20"></div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-10/12 h-4/5 bg-white rounded-xl shadow-md p-5 transform group-hover:scale-105 group-hover:rotate-1 transition-all duration-500 flex flex-col justify-between border border-gray-100">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-8 h-8 ${project.iconLetter === 'H' ? 'rounded-lg' : 'rounded-full'} ${project.iconBg} flex items-center justify-center font-bold text-xs`}>
+                            {project.iconLetter}
+                          </div>
+                          <span className="text-sm font-bold text-gray-800">{project.brandName}</span>
+                        </div>
+                        <div className="space-y-2 mt-auto">
+                          {project.barColors?.map((color, i) => (
+                            <div key={i} className={`${i === 0 ? 'w-full' : 'w-3/4'} h-3 ${color} rounded`}></div>
+                          ))}
+                          <div className={`${project.gridColors?.length === 1 ? '' : 'grid grid-cols-' + (project.gridColors?.length || 3)} gap-2 mt-2`}>
+                            {project.gridColors?.map((color, i) => (
+                              <div key={i} className={`h-${project.gridColors.length === 1 ? '16' : project.gridColors.length === 2 ? '14' : '12'} ${color} rounded`}></div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Info */}
+                  <div className="p-6 md:p-8">
+                    <span className={`text-[10px] font-bold tracking-wider uppercase px-3 py-1 ${project.tagBg} rounded-full`}>
+                      {project.category}
+                    </span>
+                    <h3 className={`text-xl font-bold text-gray-900 mt-4 ${project.hoverColor} transition-colors`}>
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mt-2 leading-relaxed">{project.description}</p>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="p-6 md:p-8">
-              <span className="text-[10px] font-bold tracking-wider uppercase px-3 py-1 bg-amber-100 text-amber-700 rounded-full">Brand Identity</span>
-              <h3 className="text-xl font-bold text-gray-900 mt-4 group-hover:text-amber-700 transition-colors">Sattuz — Organic Brand Voice</h3>
-              <p className="text-gray-600 text-sm mt-2 leading-relaxed">Designing a brand identity that embodies the earthy, organic essence of traditional sattu-based nutrition for modern consumers.</p>
+
+            {/* Scroll Progress Indicator */}
+            <div className="mt-6 md:mt-8 flex items-center gap-3">
+              <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gray-900 rounded-full transition-all duration-100"
+                  style={{ width: `${scrollProgress * 100}%` }}
+                ></div>
+              </div>
+              <span className="text-xs text-gray-400 font-medium">
+                {Math.round(scrollProgress * projects.length)}/{projects.length}
+              </span>
             </div>
           </div>
-
-          {/* Project 2 - GutNut */}
-          <div className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500">
-            <div className="aspect-[4/3] w-full bg-gradient-to-br from-green-50 to-emerald-100 relative flex items-center justify-center p-8 overflow-hidden">
-              <div className="w-10/12 h-4/5 bg-white rounded-xl shadow-md p-5 transform group-hover:scale-105 group-hover:-rotate-1 transition-all duration-500 flex flex-col justify-between border border-gray-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-green-200 flex items-center justify-center text-green-800 font-bold text-xs">G</div>
-                  <span className="text-sm font-bold text-gray-800">GutNut</span>
-                </div>
-                <div className="space-y-2 mt-auto">
-                  <div className="w-full h-3 bg-green-50 rounded"></div>
-                  <div className="w-2/3 h-3 bg-green-50 rounded"></div>
-                  <div className="h-16 bg-green-100/50 rounded mt-2"></div>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 md:p-8">
-              <span className="text-[10px] font-bold tracking-wider uppercase px-3 py-1 bg-green-100 text-green-700 rounded-full">Brand Design</span>
-              <h3 className="text-xl font-bold text-gray-900 mt-4 group-hover:text-green-700 transition-colors">GutNut — Health & Wellness</h3>
-              <p className="text-gray-600 text-sm mt-2 leading-relaxed">Crafting a playful yet trustworthy brand identity for a gut-health nutrition brand, emphasizing natural ingredients and well-being.</p>
-            </div>
-          </div>
-
-          {/* Project 3 - Denotation Design */}
-          <div className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500">
-            <div className="aspect-[4/3] w-full bg-gradient-to-br from-slate-50 to-gray-200 relative flex items-center justify-center p-8 overflow-hidden">
-              <div className="w-10/12 h-4/5 bg-neutral-900 rounded-xl shadow-md p-5 transform group-hover:scale-105 transition-all duration-500 flex flex-col justify-between border border-neutral-800 text-white">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold tracking-widest text-neutral-400">DENOTATION</span>
-                  <div className="w-4 h-4 rounded-full bg-white"></div>
-                </div>
-                <div className="space-y-2 mt-auto">
-                  <div className="w-full h-3 bg-neutral-800 rounded"></div>
-                  <div className="w-1/2 h-3 bg-neutral-800 rounded"></div>
-                  <div className="h-6 bg-white/10 rounded mt-2 border border-white/20"></div>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 md:p-8">
-              <span className="text-[10px] font-bold tracking-wider uppercase px-3 py-1 bg-gray-200 text-gray-700 rounded-full">Interior Identity</span>
-              <h3 className="text-xl font-bold text-gray-900 mt-4 group-hover:text-gray-600 transition-colors">Denotation Design — Interior Identity</h3>
-              <p className="text-gray-600 text-sm mt-2 leading-relaxed">Shaping a sophisticated visual identity for an interior design studio, blending minimalism with spatial awareness in every touchpoint.</p>
-            </div>
-          </div>
-
-          {/* Project 4 - Heritage for Children */}
-          <div className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500">
-            <div className="aspect-[4/3] w-full bg-gradient-to-br from-rose-50 to-purple-100 relative flex items-center justify-center p-8 overflow-hidden">
-              <div className="w-10/12 h-4/5 bg-white rounded-xl shadow-md p-5 transform group-hover:scale-105 group-hover:rotate-1 transition-all duration-500 flex flex-col justify-between border border-gray-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-purple-200 flex items-center justify-center text-purple-800 font-bold text-xs">H</div>
-                  <span className="text-sm font-bold text-gray-800">Heritage</span>
-                </div>
-                <div className="space-y-2 mt-auto">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="h-14 bg-purple-50 rounded"></div>
-                    <div className="h-14 bg-rose-50 rounded"></div>
-                  </div>
-                  <div className="w-full h-3 bg-gray-100 rounded"></div>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 md:p-8">
-              <span className="text-[10px] font-bold tracking-wider uppercase px-3 py-1 bg-purple-100 text-purple-700 rounded-full">Interactive Experience</span>
-              <h3 className="text-xl font-bold text-gray-900 mt-4 group-hover:text-purple-700 transition-colors">Heritage for Children</h3>
-              <p className="text-gray-600 text-sm mt-2 leading-relaxed">Bringing history alive through interactive design — making cultural heritage accessible and engaging for young minds through playful interfaces.</p>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
