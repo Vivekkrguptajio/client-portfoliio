@@ -32,10 +32,10 @@ export default function Navbar({ scrolled, activeSection, loading }) {
       } ${scrolled ? 'top-4 px-4' : 'top-0 px-0'}`}
     >
       <nav 
-        className={`w-full flex items-center justify-between transition-all duration-500 bg-white/20 backdrop-blur-2xl backdrop-saturate-200 ${
+        className={`w-full flex items-center justify-between transition-all duration-500 ${
           scrolled 
-            ? 'max-w-7xl py-1.5 px-6 md:px-8 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/40' 
-            : 'max-w-full py-3 px-6 md:px-10 shadow-sm rounded-none border-transparent'
+            ? 'bg-white/20 backdrop-blur-2xl backdrop-saturate-200 max-w-7xl py-3 px-6 md:px-8 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/40' 
+            : 'bg-transparent max-w-full py-4 px-6 md:px-10 shadow-none rounded-none border-transparent'
         }`}
       >
         {/* Logo */}
@@ -49,7 +49,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
           <img 
             src={ranjeetNavbar} 
             alt="Ranjeet Logo" 
-            className="w-10 h-10 md:w-11 md:h-11 object-contain group-hover:scale-105 transition-all duration-300"
+            className="w-9 h-9 md:w-10 md:h-10 object-contain group-hover:scale-105 transition-all duration-300"
           />
           <span className="text-sm md:text-base group-hover:text-gray-600 transition-colors duration-300">
             Ranjeet Verma.
@@ -76,7 +76,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
 
           <a 
             href="#contact"
-            className="bg-gradient-to-r from-cyan-400 to-indigo-500 text-white text-[15px] font-medium px-6 py-2.5 rounded-full hover:shadow-[0_8px_20px_-6px_rgba(56,189,248,0.5)] hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-r from-cyan-400 to-indigo-500 text-white text-[14px] font-medium px-5 py-1.5 rounded-full hover:shadow-[0_8px_20px_-6px_rgba(56,189,248,0.5)] hover:scale-105 transition-all duration-300"
           >
             Contact
           </a>

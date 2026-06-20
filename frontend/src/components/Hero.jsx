@@ -1,9 +1,22 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { PortfolioContext } from '../context/PortfolioContext'
 import heroImg from '../assets/hero.png'
 
 export default function Hero() {
   const { profileDetails } = useContext(PortfolioContext)
+  const [imgPos, setImgPos] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    const x = (e.clientX - (left + width / 2)) * 0.2
+    const y = (e.clientY - (top + height / 2)) * 0.2
+    setImgPos({ x, y })
+  }
+
+  const handleMouseLeave = () => {
+    setImgPos({ x: 0, y: 0 })
+  }
+
   return (
     <section 
       id="home" 
@@ -15,7 +28,10 @@ export default function Hero() {
         <img 
           src={heroImg} 
           alt="Sketch illustration of Ranjeet Verma" 
-          className="max-h-[55vh] w-auto object-contain select-none animate-float"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ transform: `translate(${imgPos.x}px, ${imgPos.y}px)` }}
+          className="max-h-[55vh] w-auto object-contain select-none transition-transform duration-75 ease-out hover:scale-105"
         />
 
         {/* Heading - overlaps bottom of image */}
