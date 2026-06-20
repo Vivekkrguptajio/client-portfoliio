@@ -1,6 +1,9 @@
+import { useContext } from 'react'
+import { PortfolioContext } from '../context/PortfolioContext'
 import heroImg from '../assets/hero.png'
 
 export default function Hero() {
+  const { profileDetails } = useContext(PortfolioContext)
   return (
     <section 
       id="home" 
@@ -21,8 +24,8 @@ export default function Hero() {
             Simplicity
           </h1>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-mondwest text-gray-900 leading-tight tracking-tight mt-1">
-            <span className="font-light italic">in Every</span>{' '}
-            <span className="font-bold">Interaction</span>
+            <span className="font-light italic">{profileDetails.subtitle.split(' ')[0]} {profileDetails.subtitle.split(' ')[1]}</span>{' '}
+            <span className="font-bold">{profileDetails.subtitle.split(' ').slice(2).join(' ')}</span>
           </h2>
         </div>
       </div>
@@ -32,8 +35,7 @@ export default function Hero() {
         className="max-w-lg text-center text-gray-500 text-sm md:text-base leading-relaxed mt-4 mb-6 animate-fade-up" 
         style={{ animationDelay: '0.4s' }}
       >
-        Designing intuitive and engaging digital experiences that
-        solve real-world problems
+        {profileDetails.description}
       </p>
 
       {/* Buttons */}
@@ -48,7 +50,8 @@ export default function Hero() {
           EXPLORE WORK
         </a>
         <a 
-          href="#resume" 
+          href={profileDetails.resumeLink} 
+          download={profileDetails.resumeLink !== '#' ? 'Resume.pdf' : undefined}
           className="border border-gray-300 text-gray-700 text-xs font-semibold tracking-[0.15em] uppercase px-7 py-4 rounded-lg hover:border-gray-900 hover:text-gray-900 transition-all duration-300 active:scale-[0.97]"
         >
           RESUME

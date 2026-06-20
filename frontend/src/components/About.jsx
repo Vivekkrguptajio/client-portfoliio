@@ -1,13 +1,10 @@
+import { useContext } from 'react'
+import { PortfolioContext } from '../context/PortfolioContext'
 import aboutImg from '../assets/about.png'
 
 export default function About() {
-  const aboutParagraphs = [
-    "I'm not here just to design — I'm here to translate ideas into experiences.",
-    "I'm Ranjeet Verma, a designer who moves between craft and code, culture and minimalism, logic and emotion.",
-    "My work lives at the intersection of stories and systems — where a product can carry heritage, and an interface can feel like a conversation.",
-    "From giving an organic voice to brand identities, to shaping interior identities, and bringing history alive through interactive heritage projects, every project I touch is an experiment in meaning.",
-    "I don't design to impress — I design to connect. To make someone pause, feel, or remember.",
-  ]
+  const { aboutParagraphs } = useContext(PortfolioContext)
+
 
   return (
     <>

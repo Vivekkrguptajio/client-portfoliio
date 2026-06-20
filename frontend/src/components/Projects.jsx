@@ -1,6 +1,8 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useContext } from 'react'
+import { PortfolioContext } from '../context/PortfolioContext'
 
 export default function Projects() {
+  const { projects } = useContext(PortfolioContext)
   const sectionRef = useRef(null)
   const trackRef = useRef(null)
   const [translateX, setTranslateX] = useState(0)
@@ -38,56 +40,7 @@ export default function Projects() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const projects = [
-    {
-      title: 'Sattuz — Organic Brand Voice',
-      category: 'Brand Identity',
-      description: 'Designing a brand identity that embodies the earthy, organic essence of traditional sattu-based nutrition for modern consumers.',
-      bgGradient: 'from-amber-50 to-orange-100',
-      tagBg: 'bg-amber-100 text-amber-700',
-      hoverColor: 'group-hover:text-amber-700',
-      iconBg: 'bg-amber-200 text-amber-800',
-      iconLetter: 'S',
-      brandName: 'Sattuz',
-      barColors: ['bg-amber-50', 'bg-amber-50'],
-      gridColors: ['bg-amber-100/50', 'bg-amber-100/50', 'bg-amber-100/50'],
-    },
-    {
-      title: 'GutNut — Health & Wellness',
-      category: 'Brand Design',
-      description: 'Crafting a playful yet trustworthy brand identity for a gut-health nutrition brand, emphasizing natural ingredients and well-being.',
-      bgGradient: 'from-green-50 to-emerald-100',
-      tagBg: 'bg-green-100 text-green-700',
-      hoverColor: 'group-hover:text-green-700',
-      iconBg: 'bg-green-200 text-green-800',
-      iconLetter: 'G',
-      brandName: 'GutNut',
-      barColors: ['bg-green-50', 'bg-green-50'],
-      gridColors: ['bg-green-100/50'],
-    },
-    {
-      title: 'Denotation Design — Interior Identity',
-      category: 'Interior Identity',
-      description: 'Shaping a sophisticated visual identity for an interior design studio, blending minimalism with spatial awareness in every touchpoint.',
-      bgGradient: 'from-slate-50 to-gray-200',
-      tagBg: 'bg-gray-200 text-gray-700',
-      hoverColor: 'group-hover:text-gray-600',
-      isDark: true,
-    },
-    {
-      title: 'Heritage for Children',
-      category: 'Interactive Experience',
-      description: 'Bringing history alive through interactive design — making cultural heritage accessible and engaging for young minds through playful interfaces.',
-      bgGradient: 'from-rose-50 to-purple-100',
-      tagBg: 'bg-purple-100 text-purple-700',
-      hoverColor: 'group-hover:text-purple-700',
-      iconBg: 'bg-purple-200 text-purple-800',
-      iconLetter: 'H',
-      brandName: 'Heritage',
-      barColors: ['bg-gray-100'],
-      gridColors: ['bg-purple-50', 'bg-rose-50'],
-    },
-  ]
+
 
   return (
     <section
@@ -125,8 +78,10 @@ export default function Projects() {
                   style={{ width: '480px' }}
                 >
                   {/* Card Image Area */}
-                  <div className={`aspect-[4/3] w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center p-8 overflow-hidden`}>
-                    {project.isDark ? (
+                  <div className={`aspect-[4/3] w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center ${project.image ? '' : 'p-8'} overflow-hidden`}>
+                    {project.image ? (
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500" />
+                    ) : project.isDark ? (
                       <div className="w-10/12 h-4/5 bg-neutral-900 rounded-xl shadow-md p-5 transform group-hover:scale-105 transition-all duration-500 flex flex-col justify-between border border-neutral-800 text-white">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold tracking-widest text-neutral-400">DENOTATION</span>

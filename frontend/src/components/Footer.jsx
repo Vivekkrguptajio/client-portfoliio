@@ -1,4 +1,8 @@
+import { useContext } from 'react'
+import { PortfolioContext } from '../context/PortfolioContext'
+
 export default function Footer() {
+  const { profileDetails, socialLinks } = useContext(PortfolioContext)
   return (
     <footer className="bg-gray-900 text-gray-400 py-10 md:py-14">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -8,7 +12,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-4">
             <span className="text-white font-semibold text-lg tracking-tight">
-              Ranjeet Verma.
+              {profileDetails.firstName} {profileDetails.lastName}.
             </span>
           </div>
 
@@ -27,15 +31,15 @@ export default function Footer() {
 
           {/* Social Links */}
           <div className="flex items-center gap-4">
-            {['Behance', 'Instagram', 'LinkedIn'].map((social) => (
+            {Object.entries(socialLinks).map(([network, url]) => (
               <a 
-                key={social} 
-                href={social === 'LinkedIn' ? 'https://www.linkedin.com/in/ranjeet-kumar-verma-66a866278/' : '#'} 
-                target={social === 'LinkedIn' ? '_blank' : undefined}
-                rel={social === 'LinkedIn' ? 'noreferrer' : undefined}
-                className="text-xs font-medium hover:text-white transition-colors duration-200"
+                key={network} 
+                href={url} 
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-medium hover:text-white transition-colors duration-200 capitalize"
               >
-                {social}
+                {network}
               </a>
             ))}
           </div>
@@ -44,7 +48,7 @@ export default function Footer() {
         {/* Copyright Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} Ranjeet Verma. All rights reserved. Designed & crafted with care.
+            © {new Date().getFullYear()} {profileDetails.firstName} {profileDetails.lastName}. All rights reserved. Designed & crafted with care.
           </p>
         </div>
 
