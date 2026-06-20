@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Welcome from './components/Welcome'
 import About from './components/About'
 import Toolkit from './components/Toolkit'
 import Projects from './components/Projects'
@@ -52,7 +51,6 @@ function App() {
       {/* ═══════ MAIN CONTENT ═══════ */}
       <main className={`transition-all duration-1000 ${loading ? 'opacity-0 blur-md' : 'opacity-100 blur-0'}`}>
         <Hero />
-        <Welcome />
         <About />
         <Toolkit />
         <Projects />

@@ -17,11 +17,11 @@ export default function Hero() {
 
         {/* Heading - overlaps bottom of image */}
         <div className="text-center -mt-8 md:-mt-12 relative z-10 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-mondwest text-gray-900 leading-tight tracking-tight">
             Simplicity
           </h1>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl text-gray-900 leading-tight tracking-tight mt-1">
-            <span className="italic font-light">in Every</span>{' '}
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-mondwest text-gray-900 leading-tight tracking-tight mt-1">
+            <span className="font-light italic">in Every</span>{' '}
             <span className="font-bold">Interaction</span>
           </h2>
         </div>
@@ -53,13 +53,6 @@ export default function Hero() {
         >
           RESUME
         </a>
-      </div>
-
-      {/* Decorative wave divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-6 md:h-10 overflow-hidden">
-        <svg viewBox="0 0 1200 40" className="w-full h-full" preserveAspectRatio="none">
-          <path d="M0,20 Q300,40 600,20 Q900,0 1200,20 L1200,40 L0,40 Z" fill="#f9fafb" />
-        </svg>
       </div>
     </section>
   )

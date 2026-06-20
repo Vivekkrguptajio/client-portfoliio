@@ -1,3 +1,5 @@
+import aboutImg from '../assets/about.png'
+
 export default function About() {
   const aboutParagraphs = [
     "I'm not here just to design — I'm here to translate ideas into experiences.",
@@ -15,9 +17,9 @@ export default function About() {
           {/* Left: Profile Sketch Image */}
           <div className="relative w-full flex justify-center md:justify-start">
             <img 
-              src="/profile_sketch.png" 
+              src={aboutImg} 
               alt="Sketch illustration of Ranjeet Verma" 
-              className="w-full max-w-md h-auto object-contain"
+              className="w-full max-w-lg md:max-w-xl h-auto object-contain scale-x-[-1] md:scale-x-[-1.1] md:scale-y-[1.1] origin-center"
             />
           </div>
 
@@ -35,13 +37,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-      {/* Decorative SVG Wave Divider */}
-      <div className="w-[80%] mx-auto h-4 md:h-8 overflow-hidden">
-        <svg viewBox="0 0 1200 30" className="w-full h-full" preserveAspectRatio="none">
-          <path d="M0,15 C200,30 400,0 600,15 C800,30 1000,0 1200,15" stroke="#d1d5db" strokeWidth="2" fill="none"/>
-        </svg>
-      </div>
     </>
   )
 }

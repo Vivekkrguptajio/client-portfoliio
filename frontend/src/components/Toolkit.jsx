@@ -1,45 +1,40 @@
 export default function Toolkit() {
-  // Repeating the tools to create a seamless infinite marquee effect
-  const tools = [
-    { id: 1, type: 'triangle' },
-    { id: 2, type: 'triangle' },
-    { id: 3, type: 'triangle' },
-    { id: 4, type: 'triangle' },
-    { id: 5, type: 'triangle' },
-    { id: 6, type: 'circle' },
-    { id: 7, type: 'triangle' },
+  const designTools = [
+    { id: 1, name: 'Figma', bg: 'bg-[#F24E1E]/5', text: 'text-[#F24E1E]', border: 'border-[#F24E1E]/20', icon: 'https://cdn.simpleicons.org/figma/F24E1E' },
+    { id: 2, name: 'Webflow', bg: 'bg-[#4353FF]/5', text: 'text-[#4353FF]', border: 'border-[#4353FF]/20', icon: 'https://cdn.simpleicons.org/webflow/4353FF' },
+    { id: 3, name: 'Adobe XD', bg: 'bg-[#FF61F6]/5', text: 'text-[#FF61F6]', border: 'border-[#FF61F6]/20', icon: 'https://cdn.simpleicons.org/adobexd/FF61F6' },
+    { id: 4, name: 'Notion', bg: 'bg-gray-100', text: 'text-gray-900', border: 'border-gray-200', icon: 'https://cdn.simpleicons.org/notion/111111' },
+    { id: 5, name: 'Illustrator', bg: 'bg-[#FF9A00]/5', text: 'text-[#FF9A00]', border: 'border-[#FF9A00]/20', icon: 'https://cdn.simpleicons.org/adobeillustrator/FF9A00' },
+    { id: 6, name: 'Photoshop', bg: 'bg-[#31A8FF]/5', text: 'text-[#31A8FF]', border: 'border-[#31A8FF]/20', icon: 'https://cdn.simpleicons.org/adobephotoshop/31A8FF' },
+    { id: 7, name: 'Framer', bg: 'bg-[#0055FF]/5', text: 'text-[#0055FF]', border: 'border-[#0055FF]/20', icon: 'https://cdn.simpleicons.org/framer/0055FF' },
+    { id: 8, name: 'Spline', bg: 'bg-[#FF00C7]/5', text: 'text-[#FF00C7]', border: 'border-[#FF00C7]/20', icon: 'https://cdn.simpleicons.org/spline/FF00C7' },
+    { id: 9, name: 'Miro', bg: 'bg-[#FFD02F]/10', text: 'text-[#e5b810]', border: 'border-[#FFD02F]/30', icon: 'https://cdn.simpleicons.org/miro/e5b810' },
   ]
 
   // Double the array for the infinite scroll trick
-  const infiniteTools = [...tools, ...tools, ...tools, ...tools]
+  const infiniteTools = [...designTools, ...designTools, ...designTools, ...designTools]
 
   return (
-    <section className="w-full bg-white py-12 overflow-hidden border-t border-gray-100">
-      <div className="max-w-6xl mx-auto px-5 md:px-20 mb-10 text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-tight">
-          My Design Toolkit
+    <section className="w-full bg-white py-16 overflow-hidden border-t border-gray-100">
+      <div className="max-w-6xl mx-auto px-5 md:px-20 mb-12 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+          <span className="font-light">My Design </span>
+          <span>Toolkit</span>
         </h2>
       </div>
 
-      <div className="relative flex w-full overflow-hidden">
+      <div className="relative flex w-full overflow-hidden group">
         {/* Marquee Wrapper */}
-        <div className="flex w-[200%] animate-marquee gap-6 px-3">
+        <div className="flex w-max animate-marquee gap-6 md:gap-8 px-4">
           {infiniteTools.map((tool, index) => (
             <div 
-              key={index} 
-              className="flex-shrink-0 w-24 h-24 md:w-32 md:h-32 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-default"
+              key={`${tool.id}-${index}`} 
+              className={`flex-shrink-0 flex flex-col w-40 h-40 md:w-48 md:h-48 rounded-[2rem] border items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-default ${tool.bg} ${tool.border}`}
             >
-              {tool.type === 'circle' ? (
-                <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-gray-500 to-gray-800 rounded-full shadow-inner"></div>
-              ) : (
-                <div 
-                  className="w-0 h-0 
-                  border-l-[16px] border-l-transparent 
-                  border-b-[28px] border-b-gray-200 
-                  border-r-[16px] border-r-transparent 
-                  md:border-l-[24px] md:border-b-[40px] md:border-r-[24px]"
-                ></div>
-              )}
+              <img src={tool.icon} alt={tool.name} className="w-12 h-12 md:w-16 md:h-16 mb-4 object-contain drop-shadow-sm" />
+              <span className={`font-semibold text-base md:text-lg tracking-wide ${tool.text}`}>
+                {tool.name}
+              </span>
             </div>
           ))}
         </div>

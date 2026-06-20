@@ -17,9 +17,9 @@ export default function Navbar({ scrolled, activeSection, loading }) {
   }
 
   const navLinks = [
-    { name: 'ABOUT', href: '#about' },
-    { name: 'PROJECTS', href: '#projects' },
-    { name: 'CONTACT', href: '#contact' },
+    { name: 'ABOUT US', href: '#about' },
+    { name: 'PROJECT', href: '#projects' },
+    { name: 'RESUME', href: '#resume' },
   ]
 
   return (
@@ -59,7 +59,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
             <a 
               key={link.name}
               href={link.href} 
-              className={`text-xs font-semibold tracking-[0.15em] transition-colors duration-200 relative py-1 ${
+              className={`text-sm font-medium transition-colors duration-200 relative py-1 ${
                 activeSection === link.name.toLowerCase() 
                   ? 'text-gray-900' 
                   : 'text-gray-500 hover:text-gray-900'
@@ -68,14 +68,6 @@ export default function Navbar({ scrolled, activeSection, loading }) {
               {link.name}
             </a>
           ))}
-          
-          {/* Resume Button */}
-          <a 
-            href="#resume" 
-            className="border border-gray-300 hover:border-gray-900 rounded-full px-5 py-2 text-xs font-semibold tracking-[0.15em] text-gray-600 hover:text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300"
-          >
-            RESUME
-          </a>
         </div>
 
         {/* Mobile menu button */}
@@ -99,17 +91,11 @@ export default function Navbar({ scrolled, activeSection, loading }) {
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenu(false)}
-              className="text-xs font-semibold tracking-[0.15em] text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
             >
               {link.name}
             </a>
           ))}
-          <a 
-            href="#resume" 
-            className="border border-gray-300 rounded-full px-5 py-2 text-xs font-semibold tracking-[0.15em] text-gray-600 text-center hover:bg-gray-900 hover:text-white transition-all duration-300"
-          >
-            RESUME
-          </a>
         </div>
       </div>
     </header>

@@ -30,7 +30,9 @@ export default function Footer() {
             {['Behance', 'Instagram', 'LinkedIn'].map((social) => (
               <a 
                 key={social} 
-                href="#" 
+                href={social === 'LinkedIn' ? 'https://www.linkedin.com/in/ranjeet-kumar-verma-66a866278/' : '#'} 
+                target={social === 'LinkedIn' ? '_blank' : undefined}
+                rel={social === 'LinkedIn' ? 'noreferrer' : undefined}
                 className="text-xs font-medium hover:text-white transition-colors duration-200"
               >
                 {social}
