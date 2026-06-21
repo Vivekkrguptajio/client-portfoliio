@@ -13,7 +13,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="w-full bg-white text-black py-16 md:py-28 relative overflow-hidden">
+    <section id="contact" className="w-full bg-white text-black pt-16 md:pt-28 pb-8 md:pb-5 relative overflow-hidden">
       <div className="max-w-[1050px] mx-auto px-6 relative">
         
         {/* Main Content Block (Offset for Desktop GIF) */}
@@ -21,9 +21,9 @@ export default function Contact() {
           
           {/* Title */}
           <div className="mb-14">
-            <h2 className="text-4xl md:text-[3.5rem] font-serif text-gray-900 leading-tight">
+            <h2 className="text-[2.5rem] md:text-[4rem] font-mondwest text-gray-900 leading-none tracking-wide">
               Let's talk for<br/>
-              <span className="italic font-medium">Something special</span>
+              <span className="italic">Something special</span>
             </h2>
           </div>
 
