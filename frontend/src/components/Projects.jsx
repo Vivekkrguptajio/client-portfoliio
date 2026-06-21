@@ -27,6 +27,7 @@ export default function Projects() {
       const progress = Math.min(Math.max(scrolled / totalScroll, 0), 1)
       setScrollProgress(progress)
 
+      {/* Calculate horizontal translation */}
       // Calculate horizontal translation
       const trackWidth = track.scrollWidth
       const containerWidth = track.parentElement.offsetWidth
@@ -50,37 +51,52 @@ export default function Projects() {
       className="relative w-full bg-white"
     >
       {/* Sticky container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-start pt-24 md:pt-32 overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col justify-center pt-20 md:pt-24 overflow-hidden w-full">
         
-        {/* Section Header */}
-        <div className="w-full px-5 md:px-20">
-          <div className="max-w-6xl mx-auto">
+        <div className="w-full px-5 md:px-20 max-w-[1400px] mx-auto flex flex-col md:flex-row items-center h-full gap-10">
+          {/* Left Side: Section Header */}
+          <div className="w-full md:w-[40%] flex-shrink-0 z-10 pt-20 md:pt-0">
             <div className="mb-8 md:mb-10">
-              <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="font-light">Featured </span>
+              <h2 className="text-5xl md:text-7xl font-bold leading-tight">
+                <span className="font-light">Featured </span><br className="hidden md:block" />
                 <span className="font-bold">Projects</span>
               </h2>
-              <p className="text-gray-500 mt-3 text-base md:text-lg max-w-xl">
+              <p className="text-gray-500 mt-6 text-lg max-w-sm">
                 A curated selection of design work spanning brand identity, digital interfaces, and interactive experiences.
               </p>
             </div>
+            
+            {/* Scroll Progress Indicator */}
+            <div className="mt-12 flex items-center gap-4">
+              <div className="w-48 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gray-900 rounded-full transition-all duration-100"
+                  style={{ width: `${scrollProgress * 100}%` }}
+                ></div>
+              </div>
+              <span className="text-sm text-gray-400 font-bold tracking-widest">
+                {Math.min(Math.ceil(scrollProgress * projects.length), projects.length)} / {projects.length}
+              </span>
+            </div>
+          </div>
 
-            {/* Horizontal scrolling track */}
+          {/* Right Side: Horizontal scrolling track */}
+          <div className="w-full md:w-[60%] relative h-full flex items-center overflow-visible">
             <div
               ref={trackRef}
-              className="flex gap-8 transition-transform duration-100 ease-out will-change-transform w-max"
-              style={{ transform: `translateX(-${Math.max(0, translateX)}px)` }}
+              className="flex gap-10 transition-transform duration-100 ease-out will-change-transform w-max absolute left-0"
+              style={{ transform: `translateX(-${translateX}px)` }}
             >
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 flex-shrink-0"
+                  className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 flex-shrink-0 mt-4 md:mt-6"
                   style={{ width: '600px' }}
                 >
                   {/* Card Image Area */}
-                  <div className={`aspect-[4/3] w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center ${project.image ? '' : 'p-8'} overflow-hidden`}>
+                  <div className={`w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center ${project.image ? '' : 'p-8'} overflow-hidden`} style={{ height: '360px' }}>
                     {project.image ? (
-                      <img src={project.image} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500" />
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-700 ease-out" />
                     ) : project.isDark ? (
                       <div className="w-10/12 h-4/5 bg-neutral-900 rounded-xl shadow-md p-5 transform group-hover:scale-105 transition-all duration-500 flex flex-col justify-between border border-neutral-800 text-white">
                         <div className="flex items-center justify-between">
@@ -129,18 +145,6 @@ export default function Projects() {
               ))}
             </div>
 
-            {/* Scroll Progress Indicator */}
-            <div className="mt-6 md:mt-8 flex items-center gap-3">
-              <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gray-900 rounded-full transition-all duration-100"
-                  style={{ width: `${scrollProgress * 100}%` }}
-                ></div>
-              </div>
-              <span className="text-xs text-gray-400 font-medium">
-                {Math.round(scrollProgress * projects.length)}/{projects.length}
-              </span>
-            </div>
           </div>
         </div>
       </div>
