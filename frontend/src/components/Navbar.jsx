@@ -59,7 +59,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
         <div className="hidden md:flex items-center gap-6 lg:gap-8">
           <div className="flex items-center gap-6 lg:gap-8 mr-2">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.name.toLowerCase();
+              const isActive = activeSection === link.href.replace('#', '');
               return (
                 <a 
                   key={link.name}

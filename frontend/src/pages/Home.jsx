@@ -49,7 +49,7 @@ export default function Home() {
 
       {/* ═══════ MAIN CONTENT ═══════ */}
       <main className={`transition-all duration-1000 ${loading ? 'opacity-0 blur-md' : 'opacity-100 blur-0'}`}>
-        <Hero />
+        <Hero startAnimation={!loading} />
         <About />
         <Toolkit />
         <Projects />
