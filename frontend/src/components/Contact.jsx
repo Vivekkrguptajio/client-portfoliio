@@ -21,9 +21,9 @@ export default function Contact() {
           
           {/* Title */}
           <div className="mb-14">
-            <h2 className="text-[2.5rem] md:text-[4rem] font-mondwest text-gray-900 leading-none tracking-wide">
+            <h2 className="text-4xl md:text-[3.5rem] font-serif text-gray-900 leading-tight">
               Let's talk for<br/>
-              <span className="italic">Something special</span>
+              <span className="italic font-medium">Something special</span>
             </h2>
           </div>
 
@@ -36,6 +36,7 @@ export default function Contact() {
                 <label className="block text-[13px] font-bold text-gray-900 mb-2">Name :</label>
                 <input 
                   type="text" 
+                  required
                   className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors text-sm"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -46,6 +47,7 @@ export default function Contact() {
                 <label className="block text-[13px] font-bold text-gray-900 mb-2">Email ID :</label>
                 <input 
                   type="email" 
+                  required
                   className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors text-sm"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -64,18 +66,31 @@ export default function Contact() {
             </div>
 
             {/* Right Column */}
-            <div>
-              <label className="block text-[13px] font-bold text-gray-900 mb-2">Message :</label>
-              <textarea 
-                rows="1"
-                className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors resize-none overflow-hidden text-sm"
-                value={formData.message}
-                onChange={(e) => {
-                  setFormData({...formData, message: e.target.value});
-                  e.target.style.height = 'auto';
-                  e.target.style.height = (e.target.scrollHeight) + 'px';
-                }}
-              />
+            <div className="flex flex-col">
+              <div>
+                <label className="block text-[13px] font-bold text-gray-900 mb-2">Message :</label>
+                <textarea 
+                  rows="1"
+                  required
+                  className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors resize-none overflow-hidden text-sm"
+                  value={formData.message}
+                  onChange={(e) => {
+                    setFormData({...formData, message: e.target.value});
+                    e.target.style.height = 'auto';
+                    e.target.style.height = (e.target.scrollHeight) + 'px';
+                  }}
+                />
+              </div>
+              
+              {/* Submit Button */}
+              <div className="mt-auto pt-8 text-right">
+                <button 
+                  type="submit" 
+                  className="bg-gray-900 hover:bg-black text-white text-[11px] font-bold tracking-widest uppercase py-3 px-8 rounded-full transition-all duration-300 hover:shadow-lg transform active:scale-95"
+                >
+                  Send Message
+                </button>
+              </div>
             </div>
 
           </form>
@@ -86,7 +101,7 @@ export default function Contact() {
             {/* Credits Info */}
             <div className="text-left">
               <h4 className="text-base font-bold text-gray-900">{profileDetails.firstName} {profileDetails.lastName}</h4>
-              <p className="text-[12px] font-bold text-gray-900 mt-1">{profileDetails.location}</p>
+              <p className="text-[12px] font-bold text-gray-900 mt-1">{profileDetails.location || 'Chas Bokaro Jharkhand , India'}</p>
               <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-2">
                 WEBSITE 2026 - DESIGN BY RANJEET
               </p>

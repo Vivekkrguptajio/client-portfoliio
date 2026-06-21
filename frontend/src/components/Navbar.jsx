@@ -21,7 +21,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
   const navLinks = [
     { name: 'ABOUT US', href: '#about' },
     { name: 'PROJECT', href: '#projects' },
-    { name: 'RESUME', href: '#contact' },
+    { name: 'CONTACT', href: '#contact' },
   ]
 
   return (
