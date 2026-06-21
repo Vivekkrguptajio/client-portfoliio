@@ -75,7 +75,7 @@ export default function Projects() {
                 <div
                   key={index}
                   className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 flex-shrink-0"
-                  style={{ width: '480px' }}
+                  style={{ width: '600px' }}
                 >
                   {/* Card Image Area */}
                   <div className={`aspect-[4/3] w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center ${project.image ? '' : 'p-8'} overflow-hidden`}>

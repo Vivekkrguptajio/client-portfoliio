@@ -8,7 +8,6 @@ import About from '../components/About'
 import Toolkit from '../components/Toolkit'
 import Projects from '../components/Projects'
 import Contact from '../components/Contact'
-import Footer from '../components/Footer'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -55,7 +54,6 @@ export default function Home() {
         <Toolkit />
         <Projects />
         <Contact />
-        <Footer />
       </main>
     </div>
   )

@@ -35,6 +35,11 @@ body {
   color: #101828;
   background: #fff;
   overflow-x: hidden;
+  cursor: none;
+}
+
+* {
+  cursor: none !important;
 }
 
 ::selection {
