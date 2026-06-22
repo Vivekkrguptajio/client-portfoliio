@@ -50,7 +50,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
             alt="Ranjeet Logo" 
             className="w-8 h-8 md:w-9 md:h-9 object-contain group-hover:scale-105 transition-all duration-300"
           />
-          <span className="text-lg md:text-xl font-mondwest group-hover:text-gray-600 transition-colors duration-300 tracking-wide">
+          <span className="text-2xl md:text-3xl font-neuebit group-hover:text-gray-600 transition-colors duration-300 tracking-wide">
             Ranjeet Verma.
           </span>
         </a>
@@ -64,7 +64,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
                 <a 
                   key={link.name}
                   href={link.href} 
-                  className={`group text-xs md:text-sm font-semibold tracking-widest transition-colors duration-200 relative py-1 ${
+                  className={`group text-lg md:text-xl font-neuebit tracking-widest transition-colors duration-200 relative py-1 ${
                     isActive 
                       ? 'text-black' 
                       : 'text-gray-900 hover:text-black'
@@ -107,7 +107,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenu(false)}
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-xl font-neuebit text-gray-600 hover:text-gray-900 transition-colors"
             >
               {link.name}
             </a>

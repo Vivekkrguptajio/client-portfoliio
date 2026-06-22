@@ -8,10 +8,10 @@ export default function Toolkit() {
   const infiniteTools = [...designTools, ...designTools, ...designTools, ...designTools]
 
   return (
-    <section className="w-full bg-white py-16 overflow-hidden border-t border-gray-100">
-      <div className="max-w-6xl mx-auto px-5 md:px-20 mb-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-          <span className="font-light">My Design </span>
+    <section className="w-full bg-white py-28 my-12 overflow-hidden border-t border-gray-100">
+      <div className="max-w-6xl mx-auto px-5 md:px-20 mb-20 text-center">
+        <h2 className="text-5xl md:text-6xl font-neuebit text-gray-900 tracking-wide">
+          <span className="text-gray-700">My Design </span>
           <span>Toolkit</span>
         </h2>
       </div>
