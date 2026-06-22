@@ -1,30 +1,53 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import wordGif from '../assets/word.gif'
 
 export default function WorkShowcase() {
   const containerRef = useRef(null)
+  
+  // Use state to track window size for dynamic width/height calculations
+  const [windowSize, setWindowSize] = useState({ width: 1000, height: 800 })
+
+  useEffect(() => {
+    // Set actual window size on mount
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+    
+    const handleResize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   })
 
-  // Scale stops before taking over the full screen (around the navbar edge)
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.8])
+  // Start with a perfect square (540px on desktop, 85vw on mobile)
+  const initialSize = windowSize.width < 768 ? windowSize.width * 0.85 : 540
   
-  // Image zooms inside the box while the box grows
+  // Target a wide rectangle (95vw width, 80vh height)
+  const targetWidth = windowSize.width * 0.95
+  const targetHeight = windowSize.height * 0.80
+
+  // Animate width and height independently
+  const width = useTransform(scrollYProgress, [0, 1], [initialSize, targetWidth])
+  const height = useTransform(scrollYProgress, [0, 1], [initialSize, targetHeight])
+  
+  // Inner image zoom effect
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2])
 
-  // Border radius reduces slightly but stays rounded at max scale
+  // Border radius transition
   const borderRadius = useTransform(scrollYProgress, [0, 1], ["30px", "16px"])
 
   return (
     <section ref={containerRef} className="relative h-[300vh] bg-white w-full">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div 
-          style={{ scale, borderRadius }} 
-          className="aspect-video w-[80vw] md:w-[640px] overflow-hidden flex items-center justify-center shadow-2xl bg-black"
+          style={{ width, height, borderRadius }} 
+          className="overflow-hidden flex items-center justify-center bg-transparent shadow-xl"
         >
           <motion.img 
             style={{ scale: imageScale }}

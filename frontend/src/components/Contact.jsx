@@ -20,45 +20,48 @@ export default function Contact() {
         <div className="md:pl-[320px] relative z-20">
           
           {/* Title */}
-          <div className="mb-14">
-            <h2 className="text-[2.5rem] md:text-[4rem] font-mondwest text-gray-900 leading-none tracking-wide">
-              Let's talk for<br/>
-              <span className="italic">Something special</span>
+          <div className="mb-10">
+            <h2 className="text-[3.5rem] md:text-[5.5rem] text-black flex flex-col tracking-tight">
+              <span className="font-mondwest leading-none mb-1 md:mb-2">Let's talk for</span>
+              <span className="leading-none">
+                <span className="font-caslon italic font-medium pr-3 md:pr-4">Something</span>
+                <span className="font-mondwest">special</span>
+              </span>
             </h2>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
             
             {/* Left Column */}
-            <div className="space-y-8">
+            <div className="space-y-5">
               <div>
-                <label className="block text-[13px] font-bold text-gray-900 mb-2">Name :</label>
+                <label className="block text-lg font-caslon text-black mb-0">Name :</label>
                 <input 
                   type="text" 
                   required
-                  className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors text-sm"
+                  className="w-full border-b border-gray-400 focus:border-black bg-transparent pb-1 outline-none transition-colors text-base font-sans mt-1"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                 />
               </div>
               
               <div>
-                <label className="block text-[13px] font-bold text-gray-900 mb-2">Email ID :</label>
+                <label className="block text-lg font-caslon text-black mb-0">Email ID :</label>
                 <input 
                   type="email" 
                   required
-                  className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors text-sm"
+                  className="w-full border-b border-gray-400 focus:border-black bg-transparent pb-1 outline-none transition-colors text-base font-sans mt-1"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
               
               <div>
-                <label className="block text-[13px] font-bold text-gray-900 mb-2">Phone No :</label>
+                <label className="block text-lg font-caslon text-black mb-0">Phone No :</label>
                 <input 
                   type="tel" 
-                  className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors text-sm"
+                  className="w-full border-b border-gray-400 focus:border-black bg-transparent pb-1 outline-none transition-colors text-base font-sans mt-1"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
@@ -66,13 +69,13 @@ export default function Contact() {
             </div>
 
             {/* Right Column */}
-            <div className="flex flex-col">
-              <div>
-                <label className="block text-[13px] font-bold text-gray-900 mb-2">Message :</label>
+            <div className="flex flex-col h-full">
+              <div className="flex-1">
+                <label className="block text-lg font-caslon text-black mb-0">Message :</label>
                 <textarea 
                   rows="1"
                   required
-                  className="w-full border-b border-gray-900 focus:border-black bg-transparent py-1 outline-none transition-colors resize-none overflow-hidden text-sm"
+                  className="w-full border-b border-gray-400 focus:border-black bg-transparent pb-1 outline-none transition-colors resize-none overflow-hidden text-base font-sans mt-1"
                   value={formData.message}
                   onChange={(e) => {
                     setFormData({...formData, message: e.target.value});

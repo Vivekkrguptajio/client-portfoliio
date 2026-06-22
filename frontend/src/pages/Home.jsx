@@ -8,6 +8,7 @@ import About from '../components/About'
 import Toolkit from '../components/Toolkit'
 import Approach from '../components/Approach'
 import WorkShowcase from '../components/WorkShowcase'
+import LatestWork from '../components/LatestWork'
 import Contact from '../components/Contact'
 
 export default function Home() {
@@ -20,7 +21,7 @@ export default function Home() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
 
-      const sections = ['home', 'about', 'contact']
+      const sections = ['home', 'about', 'approach', 'contact']
       const scrollPosition = window.scrollY + 200
 
       for (const section of sections) {
@@ -55,6 +56,7 @@ export default function Home() {
         <Toolkit />
         <Approach />
         <WorkShowcase />
+        <LatestWork />
         <Contact />
       </main>
     </div>

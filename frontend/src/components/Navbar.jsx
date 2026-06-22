@@ -19,8 +19,9 @@ export default function Navbar({ scrolled, activeSection, loading }) {
   }
 
   const navLinks = [
-    { name: 'ABOUT US', href: '#about' },
-    { name: 'CONTACT', href: '#contact' },
+    { name: 'ABOUT US', href: '/#about' },
+    { name: 'MY WORK', href: '/work' },
+    { name: 'CONTACT', href: '/#contact' },
   ]
 
   return (
@@ -55,15 +56,16 @@ export default function Navbar({ scrolled, activeSection, loading }) {
         </a>
         
         {/* Desktop Nav Links & Buttons */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-8">
-          <div className="flex items-center gap-6 lg:gap-8 mr-2">
+        <div className="hidden md:flex items-center gap-4 lg:gap-6">
+          <div className="flex items-center gap-4 lg:gap-6 mr-2">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace('#', '');
+              const linkPath = link.href.replace(/^\//, '').replace(/^#/, '');
+              const isActive = activeSection === linkPath;
               return (
                 <a 
                   key={link.name}
                   href={link.href} 
-                  className={`group text-lg md:text-xl font-neuebit tracking-widest transition-colors duration-200 relative py-1 ${
+                  className={`group text-lg md:text-xl font-neuebit tracking-normal md:tracking-wide transition-colors duration-200 relative py-1 ${
                     isActive 
                       ? 'text-black' 
                       : 'text-gray-900 hover:text-black'

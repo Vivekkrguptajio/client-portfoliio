@@ -9,6 +9,21 @@ export default function Approach() {
     { src: "/logo/Frame 5.svg", text: "creative minds" },
     { src: "/logo/Frame 6.svg", text: "fueled by curiosity" }
   ];
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
 
   return (
     <section id="approach" className="w-full bg-white text-black py-20 md:py-32 px-6 md:px-20 relative overflow-hidden">
@@ -17,9 +32,15 @@ export default function Approach() {
         <div className="flex flex-col md:flex-row gap-10 md:gap-20">
           {/* Left Side: Small Title */}
           <div className="w-full md:w-1/4">
-            <p className="text-gray-400 text-base md:text-lg font-neuebit font-semibold tracking-normal uppercase">
+            <motion.p 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="text-gray-400 text-base md:text-lg font-neuebit font-semibold tracking-normal uppercase"
+            >
               OUR APPROACH AND VALUES
-            </p>
+            </motion.p>
           </div>
 
           {/* Right Side: Main Text */}
@@ -45,14 +66,14 @@ export default function Approach() {
 
         {/* SVG Icons Row */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full flex flex-wrap items-center justify-between gap-6"
         >
           {icons.map((item, index) => (
-            <div key={index} className="relative group opacity-80 hover:opacity-100 transition-opacity duration-300 w-24 h-24 flex items-center justify-center">
+            <motion.div key={index} variants={itemVariants} className="relative group opacity-80 hover:opacity-100 transition-opacity duration-300 w-24 h-24 flex items-center justify-center">
               
               {/* Tooltip */}
               <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white px-5 py-2 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.1)] border border-gray-100 text-sm font-medium text-black opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap z-10 translate-y-2 group-hover:translate-y-0">
@@ -60,7 +81,7 @@ export default function Approach() {
               </div>
 
               <img src={item.src} alt={item.text} className="w-full h-full object-contain" />
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
