@@ -17,7 +17,7 @@ export default function Contact() {
       <div className="max-w-[1050px] mx-auto px-6 relative">
         
         {/* Main Content Block (Offset for Desktop GIF) */}
-        <div className="md:pl-[260px] relative z-20">
+        <div className="md:pl-[320px] relative z-20">
           
           {/* Title */}
           <div className="mb-14">
@@ -140,12 +140,12 @@ export default function Contact() {
         </div>
 
         {/* Desktop GIF (absolute to the left) */}
-        <div className="hidden md:block absolute bottom-0 left-0 w-[240px] z-10">
+        <div className="hidden md:block absolute bottom-0 left-0 w-[300px] z-10">
           <img src={contactImg} alt="Contact Hiiii" className="w-full h-auto object-contain" />
         </div>
         
         {/* Mobile GIF */}
-        <div className="md:hidden mt-12 w-48 -ml-2 relative z-10">
+        <div className="md:hidden mt-12 w-60 -ml-2 relative z-10">
           <img src={contactImg} alt="Contact Hiiii" className="w-full h-auto object-contain" />
         </div>
 
