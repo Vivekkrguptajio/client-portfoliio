@@ -7,6 +7,7 @@ import Hero from '../components/Hero'
 import About from '../components/About'
 import Toolkit from '../components/Toolkit'
 import Approach from '../components/Approach'
+import WorkShowcase from '../components/WorkShowcase'
 import Contact from '../components/Contact'
 
 export default function Home() {
@@ -53,6 +54,7 @@ export default function Home() {
         <About />
         <Toolkit />
         <Approach />
+        <WorkShowcase />
         <Contact />
       </main>
     </div>
