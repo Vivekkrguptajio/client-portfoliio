@@ -16,17 +16,17 @@ export default function About() {
             <img 
               src={aboutImg} 
               alt="Sketch illustration of Ranjeet Verma" 
-              className="w-full max-w-lg md:max-w-xl h-auto object-contain rotate-180 md:scale-[1.1] origin-center"
+              className="w-full max-w-[475px] h-auto object-contain rotate-180 origin-center mx-auto md:mx-0"
             />
           </div>
 
           {/* Right: About Text */}
           <div className="w-full md:ml-5 lg:ml-10">
-            <h2 className="text-5xl md:text-7xl font-neuebit tracking-wide mb-8 md:mb-10">
-              <span className="text-gray-700">About </span>
-              <span>Me</span>
-            </h2>
-            <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-[32px] font-mondwest text-black leading-none">About Us</h2>
+            </div>
+            
+            <div className="space-y-6 text-[#4A4A4A] text-[16px] font-sans leading-relaxed tracking-wide">
               {aboutParagraphs.map((text, index) => (
                 <p key={index}>{text}</p>
               ))}

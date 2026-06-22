@@ -3,11 +3,9 @@ import { createContext, useState, useEffect } from 'react';
 export const PortfolioContext = createContext();
 
 const defaultAboutParagraphs = [
-  "I'm not here just to design — I'm here to translate ideas into experiences.",
-  "I'm Ranjeet Verma, a designer who moves between craft and code, culture and minimalism, logic and emotion.",
-  "My work lives at the intersection of stories and systems — where a product can carry heritage, and an interface can feel like a conversation.",
-  "From giving an organic voice to brand identities, to shaping interior identities, and bringing history alive through interactive heritage projects, every project I touch is an experiment in meaning.",
-  "I don't design to impress — I design to connect. To make someone pause, feel, or remember.",
+  "Hi, I am Ranjeet Verma — a multidisciplinary designer translating ideas into meaningful experiences.",
+  "I work at the intersection of craft and code, culture and minimalism, combining storytelling with systems to create products and interfaces that feel intuitive and human.",
+  "From building brands like Sattuz and GutNut to shaping identities and experiences, my work focuses on connection, clarity, and lasting impact."
 ];
 
 const defaultProjects = [
@@ -151,48 +149,48 @@ const defaultDesignTools = [
 
 export function PortfolioProvider({ children }) {
   const [aboutParagraphs, setAboutParagraphs] = useState(() => {
-    const saved = localStorage.getItem('portfolio_about_v16');
+    const saved = localStorage.getItem('portfolio_about_v17');
     return saved ? JSON.parse(saved) : defaultAboutParagraphs;
   });
 
   const [projects, setProjects] = useState(() => {
-    const saved = localStorage.getItem('portfolio_projects_v16');
+    const saved = localStorage.getItem('portfolio_projects_v17');
     return saved ? JSON.parse(saved) : defaultProjects;
   });
 
   const [profileDetails, setProfileDetails] = useState(() => {
-    const saved = localStorage.getItem('portfolio_profile_v16');
+    const saved = localStorage.getItem('portfolio_profile_v17');
     return saved ? JSON.parse(saved) : defaultProfileDetails;
   });
 
   const [socialLinks, setSocialLinks] = useState(() => {
-    const saved = localStorage.getItem('portfolio_social_v16');
+    const saved = localStorage.getItem('portfolio_social_v17');
     return saved ? JSON.parse(saved) : defaultSocialLinks;
   });
 
   const [designTools, setDesignTools] = useState(() => {
-    const saved = localStorage.getItem('portfolio_tools_v16');
+    const saved = localStorage.getItem('portfolio_tools_v17');
     return saved ? JSON.parse(saved) : defaultDesignTools;
   });
 
   useEffect(() => {
-    localStorage.setItem('portfolio_about_v16', JSON.stringify(aboutParagraphs));
+    localStorage.setItem('portfolio_about_v17', JSON.stringify(aboutParagraphs));
   }, [aboutParagraphs]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_projects_v16', JSON.stringify(projects));
+    localStorage.setItem('portfolio_projects_v17', JSON.stringify(projects));
   }, [projects]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_profile_v16', JSON.stringify(profileDetails));
+    localStorage.setItem('portfolio_profile_v17', JSON.stringify(profileDetails));
   }, [profileDetails]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_social_v16', JSON.stringify(socialLinks));
+    localStorage.setItem('portfolio_social_v17', JSON.stringify(socialLinks));
   }, [socialLinks]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_tools_v16', JSON.stringify(designTools));
+    localStorage.setItem('portfolio_tools_v17', JSON.stringify(designTools));
   }, [designTools]);
 
   const updateAboutParagraphs = (newParagraphs) => {

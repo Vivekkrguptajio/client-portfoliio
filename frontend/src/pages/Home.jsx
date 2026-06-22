@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import About from '../components/About'
 import Toolkit from '../components/Toolkit'
-import Projects from '../components/Projects'
+import Approach from '../components/Approach'
 import Contact from '../components/Contact'
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
 
-      const sections = ['home', 'about', 'projects', 'contact']
+      const sections = ['home', 'about', 'contact']
       const scrollPosition = window.scrollY + 200
 
       for (const section of sections) {
@@ -52,7 +52,7 @@ export default function Home() {
         <Hero startAnimation={!loading} />
         <About />
         <Toolkit />
-        <Projects />
+        <Approach />
         <Contact />
       </main>
     </div>

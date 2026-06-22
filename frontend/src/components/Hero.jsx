@@ -9,8 +9,8 @@ export default function Hero({ startAnimation }) {
 
   const handleMouseMove = (e) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - (left + width / 2)) * 0.2
-    const y = (e.clientY - (top + height / 2)) * 0.2
+    const x = (e.clientX - (left + width / 2)) * 0.08
+    const y = (e.clientY - (top + height / 2)) * 0.08
     setImgPos({ x, y })
   }
 
@@ -69,7 +69,7 @@ export default function Hero({ startAnimation }) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{ transform: `translate(${imgPos.x}px, ${Math.min(imgPos.y, 0)}px)` }}
-          className="max-h-[55vh] w-auto object-contain select-none transition-transform duration-75 ease-out origin-bottom hover:scale-105"
+          className="max-h-[55vh] w-auto object-contain select-none transition-transform duration-75 ease-out origin-bottom"
         />
 
         {/* Heading - Blur Reveal Letter by Letter */}
@@ -79,13 +79,13 @@ export default function Hero({ startAnimation }) {
           initial="hidden"
           animate={startAnimation ? "visible" : "hidden"}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-[60px] font-mondwest text-[#111111] leading-none tracking-tight flex justify-center gap-x-[0.1em]">
+          <h1 className="text-5xl sm:text-6xl md:text-[80px] font-mondwest text-[#111111] leading-none tracking-normal flex justify-center">
             {"Simplicity".split("").map((letter, i) => (
               <motion.span key={`h1-${i}`} variants={wordVariants}>{letter}</motion.span>
             ))}
           </h1>
-          <h2 className="text-3xl sm:text-4xl md:text-[50px] text-[#111111] leading-none -mt-1 md:-mt-3 flex flex-wrap items-center justify-center">
-            <div className="flex mr-2 md:mr-3 font-serif italic font-normal tracking-wide">
+          <h2 className="text-4xl sm:text-5xl md:text-[56px] text-[#111111] leading-none -mt-1 md:-mt-3 flex flex-wrap items-center justify-center">
+            <div className="flex mr-1 md:mr-2 font-caslon italic font-normal tracking-wide">
               {profileDetails?.subtitle?.split(' ').slice(0, 2).join(' ').split('').map((char, i) => (
                 <motion.span key={`sub1-${i}`} variants={wordVariants}>
                   {char === ' ' ? '\u00A0' : char}
@@ -104,7 +104,7 @@ export default function Hero({ startAnimation }) {
       </div>
 
       {/* Subtitle Paragraph - Blur Reveal Letter by Letter (With Word Wrapping Preserved) */}
-      <p className="max-w-lg text-center text-gray-500 text-sm md:text-[17px] leading-relaxed mt-5 mb-8">
+      <p className="max-w-md text-center text-[#4A4A4A] text-sm md:text-[14px] leading-relaxed mt-[10px] mb-0 font-sans mx-auto">
         {(() => {
           let charIndex = 0;
           return profileDetails?.description?.split(' ').map((word, wIndex) => (
@@ -128,19 +128,19 @@ export default function Hero({ startAnimation }) {
 
       {/* Buttons */}
       <div 
-        className={`flex items-center justify-center gap-4 ${startAnimation ? 'animate-fade-up' : 'opacity-0'}`} 
+        className={`flex items-center justify-center gap-4 mt-[24px] ${startAnimation ? 'animate-fade-up' : 'opacity-0'}`} 
         style={{ animationDelay: '3.5s' }}
       >
         <a 
-          href="#projects" 
-          className="bg-[#1C1C1C] text-white text-[13px] md:text-[14px] font-medium tracking-wide px-8 py-3.5 rounded-2xl hover:bg-black hover:shadow-lg transition-all duration-300 active:scale-[0.97]"
+          href="#about" 
+          className="h-[44px] flex items-center justify-center bg-[#1C1C1C] text-white text-[13px] md:text-[14px] font-medium tracking-wide px-4 rounded-xl hover:bg-black hover:shadow-lg transition-all duration-300 active:scale-[0.97]"
         >
           EXPLOR WORK
         </a>
         <a 
           href={profileDetails?.resumeLink} 
           download={profileDetails?.resumeLink !== '#' ? 'Resume.pdf' : undefined}
-          className="bg-[#F2F2F2] text-[#1C1C1C] text-[13px] md:text-[14px] font-medium tracking-wide px-8 py-3.5 rounded-2xl hover:bg-[#E5E5E5] transition-all duration-300 active:scale-[0.97]"
+          className="h-[44px] flex items-center justify-center bg-[#F2F2F2] text-[#1C1C1C] text-[13px] md:text-[14px] font-medium tracking-wide px-4 rounded-xl hover:bg-[#E5E5E5] transition-all duration-300 active:scale-[0.97]"
         >
           RESUME
         </a>
