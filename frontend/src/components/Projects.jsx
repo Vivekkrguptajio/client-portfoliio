@@ -7,6 +7,14 @@ export default function Projects() {
   const trackRef = useRef(null)
   const [translateX, setTranslateX] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,22 +55,22 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      style={{ height: '500vh' }}
-      className="relative w-full bg-white"
+      style={{ height: isMobile ? 'auto' : '500vh' }}
+      className={`relative w-full bg-white ${isMobile ? 'py-20' : ''}`}
     >
-      {/* Sticky container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center pt-20 md:pt-24 overflow-hidden w-full">
+      {/* Container */}
+      <div className={`${isMobile ? 'relative flex flex-col w-full' : 'sticky top-0 h-screen flex flex-col justify-center pt-20 md:pt-24 overflow-hidden w-full'}`}>
         
         <div className="w-full px-5 md:px-20 max-w-[1400px] mx-auto flex flex-col md:flex-row items-center h-full gap-10">
           {/* Left Side: Section Header */}
           <div className="w-full md:w-[40%] flex-shrink-0 z-10 pt-20 md:pt-0">
             <div className="mb-8 md:mb-10">
-              <h2 className="text-7xl md:text-[5rem] font-neuebit leading-none tracking-wide">
+              <h2 className="text-5xl md:text-[5rem] font-neuebit leading-none tracking-wide">
                 <span className="text-gray-700">Featured </span><br className="hidden md:block" />
                 <span>Projects</span>
               </h2>
               <p className="text-gray-500 mt-6 text-lg max-w-sm">
-                A curated selection of design work spanning brand identity, digital interfaces, and interactive experiences.
+              
               </p>
             </div>
             
@@ -81,17 +89,16 @@ export default function Projects() {
           </div>
 
           {/* Right Side: Horizontal scrolling track */}
-          <div className="w-full md:w-[60%] relative h-full flex items-center overflow-visible">
+          <div className={`w-full md:w-[60%] relative flex items-center ${isMobile ? 'overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide' : 'h-full overflow-visible'}`}>
             <div
               ref={trackRef}
-              className="flex gap-10 transition-transform duration-100 ease-out will-change-transform w-max absolute left-0"
-              style={{ transform: `translateX(-${translateX}px)` }}
+              className={`flex gap-6 md:gap-10 transition-transform duration-100 ease-out will-change-transform ${isMobile ? 'w-max px-5' : 'w-max absolute left-0'}`}
+              style={{ transform: isMobile ? 'none' : `translateX(-${translateX}px)` }}
             >
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 flex-shrink-0 mt-4 md:mt-6"
-                  style={{ width: '600px' }}
+                  className={`group relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 flex-shrink-0 mt-4 md:mt-6 w-[85vw] md:w-[600px] ${isMobile ? 'snap-center' : ''}`}
                 >
                   {/* Card Image Area */}
                   <div className={`w-full bg-gradient-to-br ${project.bgGradient} relative flex items-center justify-center ${project.image ? '' : 'p-8'} overflow-hidden`} style={{ height: '360px' }}>

@@ -62,6 +62,57 @@ const defaultProjects = [
     gridColors: ['bg-purple-50', 'bg-rose-50'],
     isDark: false
   },
+  {
+    title: 'Fintech App UI — Modern Banking',
+    category: 'UI/UX Design',
+    description: 'A sleek, user-friendly interface for a modern banking application focusing on accessibility and seamless transactions.',
+    bgGradient: 'from-blue-50 to-indigo-100',
+    tagBg: 'bg-blue-100 text-blue-700',
+    hoverColor: 'group-hover:text-blue-700',
+    iconBg: 'bg-blue-200 text-blue-800',
+    iconLetter: 'F',
+    brandName: 'FinBank',
+    barColors: ['bg-blue-50', 'bg-blue-50'],
+    gridColors: ['bg-blue-100/50', 'bg-blue-100/50'],
+    isDark: false
+  },
+  {
+    title: 'EcoStore E-Commerce',
+    category: 'Web Experience',
+    description: 'An engaging web shopping experience for an eco-friendly brand, designed to highlight sustainable products and green practices.',
+    bgGradient: 'from-emerald-50 to-teal-100',
+    tagBg: 'bg-emerald-100 text-emerald-700',
+    hoverColor: 'group-hover:text-emerald-700',
+    iconBg: 'bg-emerald-200 text-emerald-800',
+    iconLetter: 'E',
+    brandName: 'EcoStore',
+    barColors: ['bg-emerald-50'],
+    gridColors: ['bg-emerald-100/50', 'bg-emerald-100/50', 'bg-emerald-100/50'],
+    isDark: false
+  },
+  {
+    title: 'Lumina Studio — Portfolio',
+    category: 'Creative Portfolio',
+    description: 'A minimalist, dark-themed portfolio design for a photography studio that lets the imagery do the talking.',
+    bgGradient: 'from-neutral-800 to-black',
+    tagBg: 'bg-neutral-800 text-gray-300',
+    hoverColor: 'group-hover:text-gray-400',
+    isDark: true,
+  },
+  {
+    title: 'Transit App Rebound',
+    category: 'Product Design',
+    description: 'Redesigning a local transit application to prioritize real-time updates, clear typography, and a stress-free commuter journey.',
+    bgGradient: 'from-yellow-50 to-orange-100',
+    tagBg: 'bg-yellow-100 text-yellow-700',
+    hoverColor: 'group-hover:text-yellow-700',
+    iconBg: 'bg-yellow-200 text-yellow-800',
+    iconLetter: 'T',
+    brandName: 'Transit',
+    barColors: ['bg-yellow-50', 'bg-orange-50'],
+    gridColors: ['bg-yellow-100/50'],
+    isDark: false
+  }
 ];
 
 const defaultProfileDetails = {
@@ -100,48 +151,48 @@ const defaultDesignTools = [
 
 export function PortfolioProvider({ children }) {
   const [aboutParagraphs, setAboutParagraphs] = useState(() => {
-    const saved = localStorage.getItem('portfolio_about_v15');
+    const saved = localStorage.getItem('portfolio_about_v16');
     return saved ? JSON.parse(saved) : defaultAboutParagraphs;
   });
 
   const [projects, setProjects] = useState(() => {
-    const saved = localStorage.getItem('portfolio_projects_v15');
+    const saved = localStorage.getItem('portfolio_projects_v16');
     return saved ? JSON.parse(saved) : defaultProjects;
   });
 
   const [profileDetails, setProfileDetails] = useState(() => {
-    const saved = localStorage.getItem('portfolio_profile_v15');
+    const saved = localStorage.getItem('portfolio_profile_v16');
     return saved ? JSON.parse(saved) : defaultProfileDetails;
   });
 
   const [socialLinks, setSocialLinks] = useState(() => {
-    const saved = localStorage.getItem('portfolio_social_v15');
+    const saved = localStorage.getItem('portfolio_social_v16');
     return saved ? JSON.parse(saved) : defaultSocialLinks;
   });
 
   const [designTools, setDesignTools] = useState(() => {
-    const saved = localStorage.getItem('portfolio_tools_v15');
+    const saved = localStorage.getItem('portfolio_tools_v16');
     return saved ? JSON.parse(saved) : defaultDesignTools;
   });
 
   useEffect(() => {
-    localStorage.setItem('portfolio_about_v15', JSON.stringify(aboutParagraphs));
+    localStorage.setItem('portfolio_about_v16', JSON.stringify(aboutParagraphs));
   }, [aboutParagraphs]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_projects_v15', JSON.stringify(projects));
+    localStorage.setItem('portfolio_projects_v16', JSON.stringify(projects));
   }, [projects]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_profile_v15', JSON.stringify(profileDetails));
+    localStorage.setItem('portfolio_profile_v16', JSON.stringify(profileDetails));
   }, [profileDetails]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_social_v15', JSON.stringify(socialLinks));
+    localStorage.setItem('portfolio_social_v16', JSON.stringify(socialLinks));
   }, [socialLinks]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_tools_v15', JSON.stringify(designTools));
+    localStorage.setItem('portfolio_tools_v16', JSON.stringify(designTools));
   }, [designTools]);
 
   const updateAboutParagraphs = (newParagraphs) => {

@@ -73,6 +73,14 @@ body {
   background: #f9fafb;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #d1d5dc;
   border-radius: 10px;

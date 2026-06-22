@@ -22,7 +22,7 @@ export default function About() {
 
           {/* Right: About Text */}
           <div className="w-full md:ml-5 lg:ml-10">
-            <h2 className="text-6xl md:text-7xl font-neuebit tracking-wide mb-10">
+            <h2 className="text-5xl md:text-7xl font-neuebit tracking-wide mb-8 md:mb-10">
               <span className="text-gray-700">About </span>
               <span>Me</span>
             </h2>
