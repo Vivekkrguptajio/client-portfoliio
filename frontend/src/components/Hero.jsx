@@ -24,8 +24,8 @@ export default function Hero({ startAnimation }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Slower letter appearance for heading
-        delayChildren: 0.2
+        staggerChildren: 0.025, // Much faster letter appearance for heading
+        delayChildren: 0.05
       }
     }
   }
@@ -36,7 +36,7 @@ export default function Hero({ startAnimation }) {
       opacity: 1,
       filter: "blur(0px)",
       y: 0,
-      transition: { duration: 1.5, ease: "easeOut" }
+      transition: { duration: 0.375, ease: "easeOut" }
     }
   }
 
@@ -48,9 +48,9 @@ export default function Hero({ startAnimation }) {
       filter: "blur(0px)",
       y: 0,
       transition: { 
-        duration: 1.5, 
+        duration: 0.375, 
         ease: "easeOut",
-        delay: 1.5 + (i * 0.05) // 1.5s initial delay for heading, then 0.05s per letter
+        delay: 0.375 + (i * 0.0125) // Much shorter delay for paragraph letters
       }
     })
   }
@@ -129,7 +129,7 @@ export default function Hero({ startAnimation }) {
       {/* Buttons */}
       <div 
         className={`flex items-center justify-center gap-4 mt-[24px] ${startAnimation ? 'animate-fade-up' : 'opacity-0'}`} 
-        style={{ animationDelay: '3.5s' }}
+        style={{ animationDelay: '0.8s' }}
       >
         <a 
           href="#about" 
