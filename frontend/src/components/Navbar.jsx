@@ -2,8 +2,8 @@ import { useState, useContext } from 'react'
 import { PortfolioContext } from '../context/PortfolioContext'
 import ranjeetNavbar from '../assets/ranjeetnavbar.png'
 
-export default function Navbar({ scrolled, activeSection, loading }) {
-  const { socialLinks } = useContext(PortfolioContext)
+export default function Navbar({ scrolled, activeSection, loading, isDarkTheme = false }) {
+  const { profileDetails } = useContext(PortfolioContext)
   const [mobileMenu, setMobileMenu] = useState(false)
   const [logoPos, setLogoPos] = useState({ x: 0, y: 0 })
 
@@ -19,7 +19,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
   }
 
   const navLinks = [
-    { name: 'ABOUT US', href: '/#about' },
+    { name: 'ABOUT US', href: '/about' },
     { name: 'MY WORK', href: '/work' },
     { name: 'CONTACT', href: '/#contact' },
   ]
@@ -31,9 +31,11 @@ export default function Navbar({ scrolled, activeSection, loading }) {
       } ${scrolled ? 'top-4 px-4' : 'top-0 px-0'}`}
     >
       <nav 
-        className={`w-full flex items-center justify-between transition-all duration-500 bg-white/20 backdrop-blur-2xl backdrop-saturate-200 ${
+        className={`w-full flex items-center justify-between transition-all duration-500 backdrop-blur-2xl backdrop-saturate-200 ${
+          isDarkTheme ? 'bg-white/10' : 'bg-white/20'
+        } ${
           scrolled 
-            ? 'max-w-7xl py-2 px-6 md:px-8 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/40' 
+            ? `max-w-7xl py-2 px-6 md:px-8 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.04)] border ${isDarkTheme ? 'border-white/10' : 'border-white/40'}` 
             : 'max-w-full py-3 px-6 md:px-10 shadow-sm rounded-none border-transparent'
         }`}
       >
@@ -43,14 +45,14 @@ export default function Navbar({ scrolled, activeSection, loading }) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{ transform: `translate(${logoPos.x}px, ${logoPos.y}px)` }}
-          className="group flex items-center gap-3 font-semibold text-gray-900 tracking-tight transition-transform duration-75 ease-out select-none whitespace-nowrap"
+          className={`group flex items-center gap-3 font-semibold tracking-tight transition-transform duration-75 ease-out select-none whitespace-nowrap ${isDarkTheme ? 'text-white' : 'text-gray-900'}`}
         >
           <img 
             src={ranjeetNavbar} 
             alt="Ranjeet Logo" 
-            className="w-8 h-8 md:w-9 md:h-9 object-contain group-hover:scale-105 transition-all duration-300"
+            className={`w-8 h-8 md:w-9 md:h-9 object-contain group-hover:scale-105 transition-all duration-300 ${isDarkTheme ? 'invert brightness-0 object-contain' : ''}`}
           />
-          <span className="text-2xl md:text-3xl font-neuebit group-hover:text-gray-600 transition-colors duration-300 tracking-wide">
+          <span className={`text-2xl md:text-3xl font-neuebit transition-colors duration-300 tracking-wide ${isDarkTheme ? 'group-hover:text-gray-300' : 'group-hover:text-gray-600'}`}>
             Ranjeet Verma.
           </span>
         </a>
@@ -67,12 +69,12 @@ export default function Navbar({ scrolled, activeSection, loading }) {
                   href={link.href} 
                   className={`group text-lg md:text-xl font-neuebit tracking-normal md:tracking-wide transition-colors duration-200 relative py-1 ${
                     isActive 
-                      ? 'text-black' 
-                      : 'text-gray-900 hover:text-black'
+                      ? (isDarkTheme ? 'text-white' : 'text-black')
+                      : (isDarkTheme ? 'text-gray-300 hover:text-white' : 'text-gray-900 hover:text-black')
                   }`}
                 >
                   {link.name}
-                  <span className={`absolute left-0 bottom-0 w-full h-[2px] bg-gray-900 transition-transform duration-500 origin-left ${
+                  <span className={`absolute left-0 bottom-0 w-full h-[2px] transition-transform duration-500 origin-left ${isDarkTheme ? 'bg-white' : 'bg-gray-900'} ${
                     isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   }`}></span>
                 </a>
@@ -80,7 +82,15 @@ export default function Navbar({ scrolled, activeSection, loading }) {
             })}
           </div>
 
-
+          <a 
+            href={profileDetails?.resumeLink || "#"} 
+            target="_blank" 
+            rel="noreferrer"
+            className={`group text-lg md:text-xl font-neuebit tracking-normal md:tracking-wide transition-colors duration-200 relative py-1 ${isDarkTheme ? 'text-gray-300 hover:text-white' : 'text-gray-900 hover:text-black'}`}
+          >
+            RESUME
+            <span className={`absolute left-0 bottom-0 w-full h-[2px] transition-transform duration-500 origin-left scale-x-0 group-hover:scale-x-100 ${isDarkTheme ? 'bg-white' : 'bg-gray-900'}`}></span>
+          </a>
         </div>
 
         {/* Mobile menu button */}
@@ -88,9 +98,9 @@ export default function Navbar({ scrolled, activeSection, loading }) {
           onClick={() => setMobileMenu(!mobileMenu)}
           className="md:hidden flex flex-col gap-1.5 p-2"
         >
-          <span className={`block w-5 h-[2px] bg-gray-900 transition-all duration-300 ${mobileMenu ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
-          <span className={`block w-5 h-[2px] bg-gray-900 transition-all duration-300 ${mobileMenu ? 'opacity-0' : ''}`}></span>
-          <span className={`block w-5 h-[2px] bg-gray-900 transition-all duration-300 ${mobileMenu ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
+          <span className={`block w-5 h-[2px] transition-all duration-300 ${isDarkTheme ? 'bg-white' : 'bg-gray-900'} ${mobileMenu ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
+          <span className={`block w-5 h-[2px] transition-all duration-300 ${isDarkTheme ? 'bg-white' : 'bg-gray-900'} ${mobileMenu ? 'opacity-0' : ''}`}></span>
+          <span className={`block w-5 h-[2px] transition-all duration-300 ${isDarkTheme ? 'bg-white' : 'bg-gray-900'} ${mobileMenu ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
         </button>
       </nav>
 
@@ -109,6 +119,15 @@ export default function Navbar({ scrolled, activeSection, loading }) {
               {link.name}
             </a>
           ))}
+          <a 
+            href={profileDetails?.resumeLink || "#"} 
+            target="_blank" 
+            rel="noreferrer"
+            onClick={() => setMobileMenu(false)}
+            className="text-xl font-neuebit text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            RESUME
+          </a>
         </div>
       </div>
     </header>

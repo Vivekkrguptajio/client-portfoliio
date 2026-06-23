@@ -162,7 +162,7 @@ export default function Contact() {
         </div>
         
         {/* Mobile GIF */}
-        <div className="md:hidden mt-12 w-[369px] max-w-full -ml-2 relative z-10">
+        <div className="md:hidden mt-12 w-[369px] max-w-full ml-0 relative z-10">
           <img src={contactImg} alt="Contact Hiiii" className="w-full h-auto object-contain" />
         </div>
 

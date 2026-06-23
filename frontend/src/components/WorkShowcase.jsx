@@ -46,7 +46,7 @@ export default function WorkShowcase() {
   const backgroundColor = useTransform(scrollYProgress, [0, 0.4], ["#ffffff", "#000000"])
 
   return (
-    <motion.section ref={containerRef} style={{ backgroundColor }} className="relative h-[300vh] w-full">
+    <motion.section id="work-showcase" ref={containerRef} style={{ backgroundColor }} className="relative h-[300vh] w-full">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div 
           style={{ width, height, borderRadius }} 

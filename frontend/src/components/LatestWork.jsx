@@ -32,8 +32,8 @@ export default function LatestWork() {
   ];
 
   return (
-    <section className="w-full bg-black text-white py-20 md:py-32 px-6 md:px-20 transition-colors duration-1000">
-      <div className="max-w-7xl mx-auto flex flex-col gap-12">
+    <section id="latest-work" className="w-full bg-black text-white py-20 md:py-32 px-4 md:px-16 transition-colors duration-1000">
+      <div className="w-full flex flex-col gap-12">
         {/* Section Header */}
         <motion.div 
           className="w-full"
@@ -56,7 +56,7 @@ export default function LatestWork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="w-full flex flex-col md:flex-row bg-[#FBEBE9] rounded-[32px] overflow-hidden"
+              className="w-full flex flex-col md:flex-row bg-[#0a0a0a] rounded-[32px] overflow-hidden"
             >
               {/* Left Side: Image */}
               <div className="w-full md:w-1/2 h-[250px] md:h-[380px] p-4 md:p-6">
@@ -77,7 +77,7 @@ export default function LatestWork() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-mondwest tracking-normal text-[#2A2A2A]"
+                    className="text-4xl md:text-5xl lg:text-6xl font-mondwest tracking-normal text-white"
                   >
                     {work.title}
                   </motion.h3>
@@ -86,7 +86,7 @@ export default function LatestWork() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-gray-600 text-sm md:text-base leading-relaxed font-sans"
+                    className="text-gray-400 text-sm md:text-base leading-relaxed font-sans"
                   >
                     {work.description}
                   </motion.p>
@@ -101,11 +101,11 @@ export default function LatestWork() {
                 >
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-500 text-xs font-sans">Location</span>
-                    <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-black">{work.location}</span>
+                    <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-white">{work.location}</span>
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-500 text-xs font-sans">Industry</span>
-                    <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-black">{work.industry}</span>
+                    <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-white">{work.industry}</span>
                   </div>
                 </motion.div>
               </div>

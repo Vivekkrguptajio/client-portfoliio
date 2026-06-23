@@ -15,6 +15,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   // Monitor Scroll
   useEffect(() => {
@@ -34,6 +35,23 @@ export default function Home() {
           }
         }
       }
+
+      // Check for dark theme
+      let dark = false;
+      const navBottom = window.scrollY + 80;
+      const workShowcase = document.getElementById('work-showcase');
+      const latestWork = document.getElementById('latest-work');
+
+      if (workShowcase) {
+        // WorkShowcase animates to black after 40% scroll (roughly 1.2 * windowHeight into the section)
+        const blackStart = workShowcase.offsetTop + (window.innerHeight * 1.2);
+        const blackEnd = workShowcase.offsetTop + workShowcase.offsetHeight;
+        if (navBottom >= blackStart && navBottom < blackEnd) dark = true;
+      }
+      if (latestWork) {
+        if (navBottom >= latestWork.offsetTop && navBottom < latestWork.offsetTop + latestWork.offsetHeight) dark = true;
+      }
+      setIsDarkTheme(dark);
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -47,7 +65,7 @@ export default function Home() {
       {loading && <Preloader onComplete={() => setLoading(false)} />}
 
       {/* ═══════ NAVBAR ═══════ */}
-      <Navbar scrolled={scrolled} activeSection={activeSection} loading={loading} />
+      <Navbar scrolled={scrolled} activeSection={activeSection} loading={loading} isDarkTheme={isDarkTheme} />
 
       {/* ═══════ MAIN CONTENT ═══════ */}
       <main className={`transition-all duration-1000 ${loading ? 'opacity-0 blur-md' : 'opacity-100 blur-0'}`}>
