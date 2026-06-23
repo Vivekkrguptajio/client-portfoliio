@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react'
+import { motion } from 'framer-motion'
 import { PortfolioContext } from '../context/PortfolioContext'
 import contactImg from '../assets/Contactimg.gif'
 
@@ -20,7 +21,13 @@ export default function Contact() {
         <div className="md:pl-[400px] relative z-20">
           
           {/* Title */}
-          <div className="mb-14">
+          <motion.div 
+            className="mb-14"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <h2 className="text-[3.5rem] md:text-[70px] text-black flex flex-col tracking-tight">
               <span className="font-mondwest leading-none mb-2 md:mb-4">Let's talk for</span>
               <span className="leading-none">
@@ -28,15 +35,22 @@ export default function Contact() {
                 <span className="font-mondwest">special</span>
               </span>
             </h2>
-          </div>
+          </motion.div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-x-12 lg:gap-x-20 gap-y-10">
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="flex flex-col md:flex-row gap-x-12 lg:gap-x-20 gap-y-10"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          >
             
             {/* Left Column */}
             <div className="flex flex-col space-y-8 w-full md:w-[385px] shrink-0">
               <div className="h-[48px] flex flex-col justify-end">
-                <label className="block text-[18px] font-caslon text-black mb-1">Name :</label>
+                <label className="block text-[18px] font-mondwest text-black mb-1">Name :</label>
                 <input 
                   type="text" 
                   required
@@ -47,7 +61,7 @@ export default function Contact() {
               </div>
               
               <div className="h-[48px] flex flex-col justify-end">
-                <label className="block text-[18px] font-caslon text-black mb-1">Email ID :</label>
+                <label className="block text-[18px] font-mondwest text-black mb-1">Email ID :</label>
                 <input 
                   type="email" 
                   required
@@ -58,7 +72,7 @@ export default function Contact() {
               </div>
               
               <div className="h-[48px] flex flex-col justify-end">
-                <label className="block text-[18px] font-caslon text-black mb-1">Phone No :</label>
+                <label className="block text-[18px] font-mondwest text-black mb-1">Phone No :</label>
                 <input 
                   type="tel" 
                   className="w-full border-b border-gray-400 focus:border-black bg-transparent pb-1 outline-none transition-colors text-[18px] font-sans"
@@ -71,7 +85,7 @@ export default function Contact() {
             {/* Right Column */}
             <div className="flex flex-col flex-1">
               <div className="flex-1">
-                <label className="block text-[18px] font-caslon text-black mb-1">Message :</label>
+                <label className="block text-[18px] font-mondwest text-black mb-1">Message :</label>
                 <textarea 
                   rows="1"
                   required
@@ -96,7 +110,7 @@ export default function Contact() {
               </div>
             </div>
 
-          </form>
+          </motion.form>
 
           {/* Footer Area aligned with Grid */}
           <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 items-end pb-4">

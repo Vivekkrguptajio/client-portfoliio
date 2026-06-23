@@ -29,7 +29,7 @@ export default function Approach() {
     <section id="approach" className="w-full bg-white text-black py-20 md:py-32 px-6 md:px-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col gap-20 md:gap-32">
         
-        <div className="flex flex-col md:flex-row gap-10 md:gap-20">
+        <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start">
           {/* Left Side: Small Title */}
           <div className="w-full md:w-1/4">
             <motion.p 
@@ -37,7 +37,7 @@ export default function Approach() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="text-gray-400 text-base md:text-lg font-neuebit font-semibold tracking-normal uppercase"
+              className="text-gray-400 text-base md:text-lg font-neuebit font-semibold tracking-normal uppercase md:mt-[10px]"
             >
               OUR APPROACH AND VALUES
             </motion.p>
@@ -50,7 +50,7 @@ export default function Approach() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="text-4xl md:text-6xl lg:text-[72px] leading-[1.1] font-neuebit font-medium tracking-tight"
+              className="text-4xl md:text-6xl lg:text-[72px] leading-[1.1] font-neuebit font-medium tracking-tight mt-0"
             >
               <span className="text-[#111111]">
                 We combine creativity, strategic ideas <br className="hidden lg:block" />
@@ -70,7 +70,7 @@ export default function Approach() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="w-full flex flex-wrap items-center justify-between gap-6"
+          className="w-full flex flex-row items-center justify-between px-[24px]"
         >
           {icons.map((item, index) => (
             <motion.div key={index} variants={itemVariants} className="relative group opacity-80 hover:opacity-100 transition-opacity duration-300 w-24 h-24 flex items-center justify-center">

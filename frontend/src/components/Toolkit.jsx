@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { PortfolioContext } from '../context/PortfolioContext'
+import { motion } from 'framer-motion'
 
 export default function Toolkit() {
   const { designTools } = useContext(PortfolioContext)
@@ -9,14 +10,26 @@ export default function Toolkit() {
 
   return (
     <section className="w-full bg-white py-28 my-12 overflow-hidden border-t border-gray-100">
-      <div className="max-w-6xl mx-auto px-5 md:px-20 mb-20 text-center">
+      <motion.div 
+        className="max-w-6xl mx-auto px-5 md:px-20 mb-20 text-center"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <h2 className="text-4xl md:text-6xl font-neuebit text-gray-900 tracking-wide">
           <span className="text-gray-700">My Design </span>
           <span>Toolkit</span>
         </h2>
-      </div>
+      </motion.div>
 
-      <div className="relative flex w-full overflow-hidden group">
+      <motion.div 
+        className="relative flex w-full overflow-hidden group"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+      >
         {/* Marquee Wrapper */}
         <div className="flex w-max animate-marquee gap-6 md:gap-8 px-4">
           {infiniteTools.map((tool, index) => (
@@ -31,7 +44,7 @@ export default function Toolkit() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

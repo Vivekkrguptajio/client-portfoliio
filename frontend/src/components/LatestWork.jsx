@@ -35,11 +35,17 @@ export default function LatestWork() {
     <section className="w-full bg-black text-white py-20 md:py-32 px-6 md:px-20 transition-colors duration-1000">
       <div className="max-w-7xl mx-auto flex flex-col gap-12">
         {/* Section Header */}
-        <div className="w-full">
+        <motion.div 
+          className="w-full"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <h2 className="text-4xl md:text-6xl font-neuebit uppercase tracking-wide text-white">
             LATEST WORK
           </h2>
-        </div>
+        </motion.div>
 
         {/* Cards Container */}
         <div className="flex flex-col gap-10">
@@ -66,15 +72,33 @@ export default function LatestWork() {
               {/* Right Side: Content */}
               <div className="w-full md:w-1/2 flex flex-col justify-center p-6 md:p-8 lg:px-12">
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-mondwest tracking-normal text-[#2A2A2A]">
+                  <motion.h3 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="text-4xl md:text-5xl lg:text-6xl font-mondwest tracking-normal text-[#2A2A2A]"
+                  >
                     {work.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm md:text-base leading-relaxed font-sans">
+                  </motion.h3>
+                  <motion.p 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="text-gray-600 text-sm md:text-base leading-relaxed font-sans"
+                  >
                     {work.description}
-                  </p>
+                  </motion.p>
                 </div>
 
-                <div className="flex items-center gap-12 mt-8 md:mt-12">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="flex items-center gap-12 mt-8 md:mt-12"
+                >
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-500 text-xs font-sans">Location</span>
                     <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-black">{work.location}</span>
@@ -83,7 +107,7 @@ export default function LatestWork() {
                     <span className="text-gray-500 text-xs font-sans">Industry</span>
                     <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-black">{work.industry}</span>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           ))}

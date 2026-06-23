@@ -39,7 +39,7 @@ export default function Navbar({ scrolled, activeSection, loading }) {
       >
         {/* Logo */}
         <a 
-          href="#home" 
+          href="/" 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{ transform: `translate(${logoPos.x}px, ${logoPos.y}px)` }}
