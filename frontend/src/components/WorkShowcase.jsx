@@ -42,8 +42,11 @@ export default function WorkShowcase() {
   // Border radius transition
   const borderRadius = useTransform(scrollYProgress, [0, 1], ["30px", "16px"])
 
+  // Animate background color from white to black
+  const backgroundColor = useTransform(scrollYProgress, [0, 0.4], ["#ffffff", "#000000"])
+
   return (
-    <section ref={containerRef} className="relative h-[300vh] bg-white w-full">
+    <motion.section ref={containerRef} style={{ backgroundColor }} className="relative h-[300vh] w-full">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div 
           style={{ width, height, borderRadius }} 
@@ -57,6 +60,6 @@ export default function WorkShowcase() {
           />
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   )
 }

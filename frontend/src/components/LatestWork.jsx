@@ -1,7 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 export default function LatestWork() {
+  const navigate = useNavigate();
   const works = [
     {
       id: 1,
@@ -30,13 +32,13 @@ export default function LatestWork() {
   ];
 
   return (
-    <section className="w-full bg-white text-black py-20 md:py-32 px-6 md:px-20">
+    <section className="w-full bg-black text-white py-20 md:py-32 px-6 md:px-20 transition-colors duration-1000">
       <div className="max-w-7xl mx-auto flex flex-col gap-12">
         {/* Section Header */}
         <div className="w-full">
-          <p className="text-gray-400 text-sm md:text-base font-neuebit font-semibold tracking-normal uppercase">
+          <h2 className="text-4xl md:text-6xl font-neuebit uppercase tracking-wide text-white">
             LATEST WORK
-          </p>
+          </h2>
         </div>
 
         {/* Cards Container */}
@@ -48,10 +50,10 @@ export default function LatestWork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="w-full flex flex-col md:flex-row bg-[#F8F8F8] rounded-[32px] overflow-hidden"
+              className="w-full flex flex-col md:flex-row bg-[#FBEBE9] rounded-[32px] overflow-hidden"
             >
               {/* Left Side: Image */}
-              <div className="w-full md:w-1/2 h-[350px] md:h-[550px] p-3 md:p-6">
+              <div className="w-full md:w-1/2 h-[250px] md:h-[380px] p-4 md:p-6">
                 <div className="w-full h-full rounded-[24px] overflow-hidden">
                   <img 
                     src={work.image} 
@@ -62,24 +64,24 @@ export default function LatestWork() {
               </div>
 
               {/* Right Side: Content */}
-              <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-16 lg:px-24">
-                <div className="flex flex-col gap-6">
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight">
+              <div className="w-full md:w-1/2 flex flex-col justify-center p-6 md:p-8 lg:px-12">
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-mondwest tracking-normal text-[#2A2A2A]">
                     {work.title}
                   </h3>
-                  <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed font-sans">
                     {work.description}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-16 mt-12 md:mt-20">
+                <div className="flex items-center gap-12 mt-8 md:mt-12">
                   <div className="flex flex-col gap-1">
-                    <span className="text-gray-400 text-sm">Location</span>
-                    <span className="font-medium text-sm md:text-base uppercase tracking-wide">{work.location}</span>
+                    <span className="text-gray-500 text-xs font-sans">Location</span>
+                    <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-black">{work.location}</span>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-gray-400 text-sm">Industry</span>
-                    <span className="font-medium text-sm md:text-base uppercase tracking-wide">{work.industry}</span>
+                    <span className="text-gray-500 text-xs font-sans">Industry</span>
+                    <span className="font-neuebit text-xl md:text-2xl uppercase tracking-wider text-black">{work.industry}</span>
                   </div>
                 </div>
               </div>
@@ -94,7 +96,8 @@ export default function LatestWork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
-            className="bg-[#B0B0B0] hover:bg-[#9E9E9E] text-black text-lg md:text-xl font-medium px-10 py-5 rounded-[16px] transition-colors duration-300"
+            onClick={() => navigate('/work')}
+            className="h-[44px] flex items-center justify-center bg-[#1C1C1C] text-white text-[13px] md:text-[14px] font-medium tracking-wide px-6 rounded-xl hover:bg-black hover:shadow-lg transition-all duration-300 active:scale-[0.97] uppercase"
           >
             View My Work
           </motion.button>
@@ -103,3 +106,4 @@ export default function LatestWork() {
     </section>
   )
 }
+
