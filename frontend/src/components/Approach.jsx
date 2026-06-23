@@ -37,7 +37,7 @@ export default function Approach() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="text-gray-400 text-base md:text-lg font-neuebit font-semibold tracking-normal uppercase md:mt-[10px]"
+              className="text-gray-400 text-base md:text-lg font-neuebit font-semibold tracking-normal uppercase mt-2 md:mt-[16px]"
             >
               OUR APPROACH AND VALUES
             </motion.p>
