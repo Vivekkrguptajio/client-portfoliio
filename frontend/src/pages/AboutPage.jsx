@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Contact from '../components/Contact'
-import aboutPageImg from '../assets/aboutpage.png'
+import aboutPageImg from '../assets/AboutPage.png'
 
 export default function AboutPage() {
   const [scrolled, setScrolled] = useState(false)
