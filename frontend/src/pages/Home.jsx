@@ -12,7 +12,9 @@ import LatestWork from '../components/LatestWork'
 import Contact from '../components/Contact'
 
 export default function Home() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(() => {
+    return !sessionStorage.getItem('hasVisited')
+  })
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [isDarkTheme, setIsDarkTheme] = useState(false)
@@ -62,7 +64,10 @@ export default function Home() {
     <div className="relative min-h-screen bg-white overflow-x-clip font-sans">
       
       {/* ═══════ PRELOADER ═══════ */}
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      {loading && <Preloader onComplete={() => {
+        sessionStorage.setItem('hasVisited', 'true')
+        setLoading(false)
+      }} />}
 
       {/* ═══════ NAVBAR ═══════ */}
       <Navbar scrolled={scrolled} activeSection={activeSection} loading={loading} isDarkTheme={isDarkTheme} />

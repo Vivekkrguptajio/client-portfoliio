@@ -66,10 +66,10 @@ export default function Work() {
       <Navbar scrolled={scrolled} activeSection="work" loading={false} />
 
       {/* Hero Intro Section */}
-      <section className="pt-32 md:pt-[12vw] px-6 md:px-[5vw] max-w-[1600px] mx-auto">
+      <section className="pt-[10vh] px-6 md:px-[5vw] max-w-[1600px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-0">
           <div className="w-full md:w-1/2">
-            <h1 className="text-3xl md:text-[3vw] font-caslon font-medium leading-tight text-[#111111] tracking-tight">
+            <h1 className="text-3xl md:text-[3vw] font-mondwest font-medium leading-tight text-[#111111] tracking-tight">
               More then one hundred projects delivered. A selection of the work we are most proud of, across strategy, design, and technology.
             </h1>
           </div>
@@ -119,7 +119,7 @@ export default function Work() {
 
               {/* Title & Details */}
               <div className="mt-4 md:mt-[1.5vw] flex justify-between items-start">
-                <h3 className="font-caslon text-2xl md:text-[2vw] text-[#111111] leading-none">
+                <h3 className="font-mondwest text-2xl md:text-[2vw] text-[#111111] leading-none">
                   {project.title}
                 </h3>
                 <div className="flex flex-col items-end text-right">
