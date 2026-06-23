@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Contact from '../components/Contact'
+import { PortfolioContext } from '../context/PortfolioContext'
 
 export default function Work() {
+  const { projects } = useContext(PortfolioContext)
   const [scrolled, setScrolled] = useState(false)
 
   // Handle scroll for Navbar
@@ -14,51 +16,6 @@ export default function Work() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const projects = [
-    {
-      id: 1,
-      title: 'Duo Nutrition',
-      location: 'Russia',
-      tags: ['brand-identity'],
-      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800'
-    },
-    {
-      id: 2,
-      title: 'Vora',
-      location: 'USA',
-      tags: ['brand-identity', 'visual-content'],
-      image: 'https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?q=80&w=800'
-    },
-    {
-      id: 3,
-      title: 'Freja',
-      location: 'New York',
-      tags: ['brand-strategy', 'brand-identity', 'ux-design'],
-      image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800'
-    },
-    {
-      id: 4,
-      title: 'Esaku',
-      location: 'Singapore',
-      tags: ['brand-identity'],
-      image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800'
-    },
-    {
-      id: 5,
-      title: 'Touché',
-      location: 'Russia',
-      tags: ['brand-strategy', 'brand-identity'],
-      image: 'https://images.unsplash.com/photo-1581404917879-53e19259fdda?q=80&w=800'
-    },
-    {
-      id: 6,
-      title: 'Everyday',
-      location: 'Australia',
-      tags: ['brand-identity', 'ux-design'],
-      image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=800'
-    }
-  ]
 
   return (
     <div className="relative min-h-screen bg-white text-black font-sans overflow-x-hidden">

@@ -1,35 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { PortfolioContext } from '../context/PortfolioContext'
 
 export default function LatestWork() {
   const navigate = useNavigate();
-  const works = [
-    {
-      id: 1,
-      title: "Duo Nutrition",
-      description: "DUO NUTRITION is a brand that redefines pet food as a celebration of the equal, unspoken partnership between humans and their dogs. Our challenge was to translate philosophy into a logo that captures the essence of togetherness. The solution lies in the submark: a simple yet powerful oval, split evenly down the middle. This design embodies the concept of a duet: two distinct halves, balanced and complementary, coming together to form a unified whole.",
-      location: "RUSSIA",
-      industry: "PETS",
-      image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 2,
-      title: "Indió White",
-      description: "A serene and refined space shaped by light, texture, and architectural clarity. Each project is a dialogue between structure and softness, where elegance meets a lived experience. We crafted an identity that reflects their minimalist yet warm approach to interior design.",
-      location: "CARLSBAD, CA",
-      industry: "INTERIOR DESIGN",
-      image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 3,
-      title: "Nymph Beauty",
-      description: "Nymph is a clean beauty brand focusing on natural ingredients and sustainable packaging. The branding needed to feel organic, luxurious, and grounded. We developed a visual system that utilizes earthy tones, elegant typography, and a minimalist aesthetic to convey purity and sophistication.",
-      location: "NEW YORK",
-      industry: "BEAUTY & WELLNESS",
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80"
-    }
-  ];
+  const { projects } = useContext(PortfolioContext);
+  
+  const works = projects.slice(0, 3);
 
   return (
     <section id="latest-work" className="w-full bg-black text-white py-20 md:py-32 px-4 md:px-16 transition-colors duration-1000">

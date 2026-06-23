@@ -19,9 +19,7 @@ export default function AdminDashboard() {
   const [editAbout, setEditAbout] = useState(aboutParagraphs.join('\n\n'));
   
   const [newProject, setNewProject] = useState({
-    title: '', category: '', description: '', brandName: '', iconLetter: '',
-    bgGradient: 'from-gray-100 to-gray-200', tagBg: 'bg-gray-200 text-gray-800',
-    hoverColor: 'group-hover:text-gray-900', iconBg: 'bg-white text-gray-900', isDark: false, image: ''
+    title: '', category: '', description: '', industry: '', location: '', year: '', tags: '', image: ''
   });
 
   const [editProfile, setEditProfile] = useState(profileDetails);
@@ -37,11 +35,14 @@ export default function AdminDashboard() {
   const handleAddProject = (e) => {
     e.preventDefault();
     if (!newProject.title || !newProject.description) return;
-    addProject(newProject);
+    const projectToAdd = {
+      ...newProject,
+      id: Date.now(),
+      tags: newProject.tags ? newProject.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []
+    };
+    addProject(projectToAdd);
     setNewProject({
-      title: '', category: '', description: '', brandName: '', iconLetter: '',
-      bgGradient: 'from-gray-100 to-gray-200', tagBg: 'bg-gray-200 text-gray-800',
-      hoverColor: 'group-hover:text-gray-900', iconBg: 'bg-white text-gray-900', isDark: false, image: ''
+      title: '', category: '', description: '', industry: '', location: '', year: '', tags: '', image: ''
     });
     alert('Project added successfully!');
   };
@@ -169,16 +170,13 @@ export default function AdminDashboard() {
           <form onSubmit={handleAddProject} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="text" placeholder="Project Title" required className="p-3 border rounded" value={newProject.title} onChange={e => setNewProject({...newProject, title: e.target.value})} />
-              <input type="text" placeholder="Category (e.g., Brand Identity)" required className="p-3 border rounded" value={newProject.category} onChange={e => setNewProject({...newProject, category: e.target.value})} />
-              <input type="text" placeholder="Brand Name (short)" className="p-3 border rounded" value={newProject.brandName} onChange={e => setNewProject({...newProject, brandName: e.target.value})} />
-              <input type="text" placeholder="Icon Letter (e.g., S)" maxLength="1" className="p-3 border rounded" value={newProject.iconLetter} onChange={e => setNewProject({...newProject, iconLetter: e.target.value})} />
+              <input type="text" placeholder="Category (e.g., UX/UI Design)" required className="p-3 border rounded" value={newProject.category} onChange={e => setNewProject({...newProject, category: e.target.value})} />
+              <input type="text" placeholder="Industry (e.g., Finance)" className="p-3 border rounded" value={newProject.industry} onChange={e => setNewProject({...newProject, industry: e.target.value})} />
+              <input type="text" placeholder="Location (e.g., New York)" className="p-3 border rounded" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} />
+              <input type="text" placeholder="Year (e.g., 2024)" className="p-3 border rounded" value={newProject.year} onChange={e => setNewProject({...newProject, year: e.target.value})} />
+              <input type="text" placeholder="Tags (comma separated)" className="p-3 border rounded" value={newProject.tags} onChange={e => setNewProject({...newProject, tags: e.target.value})} />
             </div>
             <textarea placeholder="Project Description" required className="w-full p-3 border rounded h-24" value={newProject.description} onChange={e => setNewProject({...newProject, description: e.target.value})} />
-            
-            <div className="flex items-center gap-2">
-              <input type="checkbox" id="isDark" checked={newProject.isDark} onChange={e => setNewProject({...newProject, isDark: e.target.checked})} />
-              <label htmlFor="isDark">Is Dark Theme (for placeholder graphic)?</label>
-            </div>
 
             <div>
               <label className="block text-sm font-semibold mb-2">Or Upload Project Image (Max 2MB)</label>

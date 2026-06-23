@@ -10,106 +10,70 @@ const defaultAboutParagraphs = [
 
 const defaultProjects = [
   {
-    title: 'Sattuz — Organic Brand Voice',
+    id: 1,
+    title: "Fintech Platform",
+    category: "UX/UI Design",
+    year: "2023",
+    description: "A comprehensive redesign of a core banking application, focusing on accessibility and seamless user experience. Resulted in a 40% increase in user engagement.",
+    industry: "Finance",
+    location: "San Francisco, CA",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    tags: ['brand-identity', 'ux-design']
+  },
+  {
+    id: 2,
+    title: "EcoStore Redesign",
+    category: "E-Commerce",
+    year: "2024",
+    description: "End-to-end e-commerce experience for a sustainable fashion brand. Implemented an innovative filtering system and streamlined checkout process.",
+    industry: "Retail",
+    location: "London, UK",
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+    tags: ['visual-content', 'ux-design']
+  },
+  {
+    id: 3,
+    title: "Healthcare Dashboard",
+    category: "Product Design",
+    year: "2023",
+    description: "A centralized dashboard for healthcare professionals to monitor patient vitals and manage schedules efficiently. HIPAA compliant interface.",
+    industry: "Healthcare",
+    location: "Boston, MA",
+    image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80",
+    tags: ['brand-strategy', 'brand-identity']
+  },
+  {
+    id: 4,
+    title: 'Duo Nutrition',
     category: 'Brand Identity',
-    description: 'Designing a brand identity that embodies the earthy, organic essence of traditional sattu-based nutrition for modern consumers.',
-    bgGradient: 'from-amber-50 to-orange-100',
-    tagBg: 'bg-amber-100 text-amber-700',
-    hoverColor: 'group-hover:text-amber-700',
-    iconBg: 'bg-amber-200 text-amber-800',
-    iconLetter: 'S',
-    brandName: 'Sattuz',
-    barColors: ['bg-amber-50', 'bg-amber-50'],
-    gridColors: ['bg-amber-100/50', 'bg-amber-100/50', 'bg-amber-100/50'],
-    isDark: false
+    year: "2023",
+    description: 'Designing a brand identity that embodies the earthy, organic essence of traditional nutrition for modern consumers.',
+    industry: 'Food & Beverage',
+    location: 'Russia',
+    image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800',
+    tags: ['brand-identity']
   },
   {
-    title: 'GutNut — Health & Wellness',
+    id: 5,
+    title: 'Vora',
     category: 'Brand Design',
-    description: 'Crafting a playful yet trustworthy brand identity for a gut-health nutrition brand, emphasizing natural ingredients and well-being.',
-    bgGradient: 'from-green-50 to-emerald-100',
-    tagBg: 'bg-green-100 text-green-700',
-    hoverColor: 'group-hover:text-green-700',
-    iconBg: 'bg-green-200 text-green-800',
-    iconLetter: 'G',
-    brandName: 'GutNut',
-    barColors: ['bg-green-50', 'bg-green-50'],
-    gridColors: ['bg-green-100/50'],
-    isDark: false
+    year: "2024",
+    description: 'Crafting a playful yet trustworthy brand identity for a wellness brand, emphasizing natural ingredients.',
+    industry: 'Wellness',
+    location: 'USA',
+    image: 'https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?q=80&w=800',
+    tags: ['brand-identity', 'visual-content']
   },
   {
-    title: 'Denotation Design — Interior Identity',
+    id: 6,
+    title: 'Freja',
     category: 'Interior Identity',
-    description: 'Shaping a sophisticated visual identity for an interior design studio, blending minimalism with spatial awareness in every touchpoint.',
-    bgGradient: 'from-slate-50 to-gray-200',
-    tagBg: 'bg-gray-200 text-gray-700',
-    hoverColor: 'group-hover:text-gray-600',
-    isDark: true,
-  },
-  {
-    title: 'Heritage for Children',
-    category: 'Interactive Experience',
-    description: 'Bringing history alive through interactive design — making cultural heritage accessible and engaging for young minds through playful interfaces.',
-    bgGradient: 'from-rose-50 to-purple-100',
-    tagBg: 'bg-purple-100 text-purple-700',
-    hoverColor: 'group-hover:text-purple-700',
-    iconBg: 'bg-purple-200 text-purple-800',
-    iconLetter: 'H',
-    brandName: 'Heritage',
-    barColors: ['bg-gray-100'],
-    gridColors: ['bg-purple-50', 'bg-rose-50'],
-    isDark: false
-  },
-  {
-    title: 'Fintech App UI — Modern Banking',
-    category: 'UI/UX Design',
-    description: 'A sleek, user-friendly interface for a modern banking application focusing on accessibility and seamless transactions.',
-    bgGradient: 'from-blue-50 to-indigo-100',
-    tagBg: 'bg-blue-100 text-blue-700',
-    hoverColor: 'group-hover:text-blue-700',
-    iconBg: 'bg-blue-200 text-blue-800',
-    iconLetter: 'F',
-    brandName: 'FinBank',
-    barColors: ['bg-blue-50', 'bg-blue-50'],
-    gridColors: ['bg-blue-100/50', 'bg-blue-100/50'],
-    isDark: false
-  },
-  {
-    title: 'EcoStore E-Commerce',
-    category: 'Web Experience',
-    description: 'An engaging web shopping experience for an eco-friendly brand, designed to highlight sustainable products and green practices.',
-    bgGradient: 'from-emerald-50 to-teal-100',
-    tagBg: 'bg-emerald-100 text-emerald-700',
-    hoverColor: 'group-hover:text-emerald-700',
-    iconBg: 'bg-emerald-200 text-emerald-800',
-    iconLetter: 'E',
-    brandName: 'EcoStore',
-    barColors: ['bg-emerald-50'],
-    gridColors: ['bg-emerald-100/50', 'bg-emerald-100/50', 'bg-emerald-100/50'],
-    isDark: false
-  },
-  {
-    title: 'Lumina Studio — Portfolio',
-    category: 'Creative Portfolio',
-    description: 'A minimalist, dark-themed portfolio design for a photography studio that lets the imagery do the talking.',
-    bgGradient: 'from-neutral-800 to-black',
-    tagBg: 'bg-neutral-800 text-gray-300',
-    hoverColor: 'group-hover:text-gray-400',
-    isDark: true,
-  },
-  {
-    title: 'Transit App Rebound',
-    category: 'Product Design',
-    description: 'Redesigning a local transit application to prioritize real-time updates, clear typography, and a stress-free commuter journey.',
-    bgGradient: 'from-yellow-50 to-orange-100',
-    tagBg: 'bg-yellow-100 text-yellow-700',
-    hoverColor: 'group-hover:text-yellow-700',
-    iconBg: 'bg-yellow-200 text-yellow-800',
-    iconLetter: 'T',
-    brandName: 'Transit',
-    barColors: ['bg-yellow-50', 'bg-orange-50'],
-    gridColors: ['bg-yellow-100/50'],
-    isDark: false
+    year: "2022",
+    description: 'Shaping a sophisticated visual identity for an interior design studio, blending minimalism with spatial awareness.',
+    industry: 'Interior Design',
+    location: 'New York',
+    image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800',
+    tags: ['brand-strategy', 'brand-identity', 'ux-design']
   }
 ];
 
@@ -154,7 +118,7 @@ export function PortfolioProvider({ children }) {
   });
 
   const [projects, setProjects] = useState(() => {
-    const saved = localStorage.getItem('portfolio_projects_v17');
+    const saved = localStorage.getItem('portfolio_projects_v18');
     return saved ? JSON.parse(saved) : defaultProjects;
   });
 
@@ -178,7 +142,7 @@ export function PortfolioProvider({ children }) {
   }, [aboutParagraphs]);
 
   useEffect(() => {
-    localStorage.setItem('portfolio_projects_v17', JSON.stringify(projects));
+    localStorage.setItem('portfolio_projects_v18', JSON.stringify(projects));
   }, [projects]);
 
   useEffect(() => {
