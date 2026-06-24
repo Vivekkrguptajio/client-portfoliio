@@ -23,7 +23,7 @@ export default function Work() {
       <Navbar scrolled={scrolled} activeSection="work" isDarkTheme={false} loading={false} />
 
       {/* Hero Intro Section */}
-      <section className="pt-[10vh] px-6 md:px-[5vw] max-w-[1600px] mx-auto">
+      <section className="pt-[20vh] px-6 md:px-[5vw] max-w-[1600px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-0">
           <div className="w-full md:w-1/2">
             <h1 className="text-3xl md:text-[3vw] font-mondwest font-medium leading-tight text-[#111111] tracking-tight">

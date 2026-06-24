@@ -85,7 +85,7 @@ const defaultProfileDetails = {
   description: 'Designing intuitive and engaging digital experiences that solve real-world problems',
   email: 'ranjeetkumar.verma@nift.alumni.in',
   phone: '+91 6205508988',
-  resumeLink: '#',
+  resumeLink: '/Ranjeet_Verma_Resume.pdf',
 };
 
 const defaultSocialLinks = {
