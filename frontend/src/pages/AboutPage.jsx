@@ -24,7 +24,7 @@ export default function AboutPage() {
       <Navbar scrolled={scrolled} activeSection={activeSection} loading={false} />
 
       {/* ═══════ MAIN CONTENT ═══════ */}
-      <main className="pt-[5px]">
+      <main className="pt-[2.2%]">
         <div className="w-full flex justify-center">
           <img src={aboutPageImg} alt="About Ranjeet" className="w-[85%] h-auto object-contain" />
         </div>
