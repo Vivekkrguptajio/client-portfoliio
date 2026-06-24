@@ -24,19 +24,7 @@ export default function Home() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
 
-      const sections = ['home', 'about', 'approach', 'contact']
-      const scrollPosition = window.scrollY + 200
-
-      for (const section of sections) {
-        const el = document.getElementById(section)
-        if (el) {
-          const top = el.offsetTop
-          const height = el.offsetHeight
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section)
-          }
-        }
-      }
+      // Scroll spy logic removed based on user request
 
       // Check for dark theme
       let dark = false;

@@ -20,7 +20,7 @@ export default function Work() {
   return (
     <div className="relative min-h-screen bg-white text-black font-sans overflow-x-hidden">
       {/* Reusing existing Navbar, passing required props */}
-      <Navbar scrolled={scrolled} activeSection="work" loading={false} />
+      <Navbar scrolled={scrolled} activeSection="work" isDarkTheme={false} loading={false} />
 
       {/* Hero Intro Section */}
       <section className="pt-[10vh] px-6 md:px-[5vw] max-w-[1600px] mx-auto">
