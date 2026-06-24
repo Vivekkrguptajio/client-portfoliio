@@ -4,11 +4,13 @@ import AdminDashboard from './pages/AdminDashboard';
 import Work from './pages/Work';
 import AboutPage from './pages/AboutPage';
 import CustomCursor from './components/CustomCursor';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <>
       <CustomCursor />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
