@@ -34,10 +34,10 @@ export default function LatestWork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="w-full flex flex-col md:flex-row bg-[#0a0a0a] rounded-[32px] overflow-hidden"
+              className="w-full flex flex-col md:flex-row bg-[#0f0f0f] border border-[#1a1a1a] rounded-[32px] overflow-hidden"
             >
               {/* Left Side: Image */}
-              <div className="w-full md:w-1/2 h-[250px] md:h-[380px] p-4 md:p-6">
+              <div className="w-full md:w-1/2 h-[300px] md:h-[450px] lg:h-[500px] p-4 md:p-6 lg:p-8">
                 <div className="w-full h-full rounded-[24px] overflow-hidden">
                   <img 
                     src={work.image} 
@@ -48,8 +48,8 @@ export default function LatestWork() {
               </div>
 
               {/* Right Side: Content */}
-              <div className="w-full md:w-1/2 flex flex-col justify-center p-6 md:p-8 lg:px-12">
-                <div className="flex flex-col gap-4">
+              <div className="w-full md:w-1/2 flex flex-col justify-between p-6 md:p-8 lg:py-12 lg:px-12">
+                <div className="flex flex-col gap-6">
                   <motion.h3 
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ export default function LatestWork() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="flex items-center gap-12 mt-8 md:mt-12"
+                  className="flex items-center gap-12 mt-8 md:mt-0"
                 >
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-500 text-xs font-sans">Location</span>
