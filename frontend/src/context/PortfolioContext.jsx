@@ -28,7 +28,14 @@ const defaultSocialLinks = {
 };
 
 const defaultDesignTools = [
-  { _id: '1', name: 'Figma', bg: 'bg-[#F24E1E]/5', text: 'text-[#F24E1E]', border: 'border-[#F24E1E]/20', icon: 'https://cdn.simpleicons.org/figma' },
+  { _id: '1', name: 'Webflow', color: '#4353FF', icon: 'https://cdn.simpleicons.org/webflow' },
+  { _id: '2', name: 'Adobe XD', color: '#FF61F6', icon: 'https://cdn.simpleicons.org/adobexd' },
+  { _id: '3', name: 'Notion', color: '#000000', icon: 'https://cdn.simpleicons.org/notion' },
+  { _id: '4', name: 'Illustrator', color: '#FF9A00', icon: 'https://cdn.simpleicons.org/adobeillustrator' },
+  { _id: '5', name: 'Photoshop', color: '#31A8FF', icon: 'https://cdn.simpleicons.org/adobephotoshop' },
+  { _id: '6', name: 'Framer', color: '#0055FF', icon: 'https://cdn.simpleicons.org/framer' },
+  { _id: '7', name: 'Spline', color: '#FF00FF', icon: 'https://cdn.simpleicons.org/spline' },
+  { _id: '8', name: 'Figma', color: '#F24E1E', icon: 'https://cdn.simpleicons.org/figma' }
 ];
 
 const defaultWorkPageDetails = {
