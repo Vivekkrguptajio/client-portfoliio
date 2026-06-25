@@ -38,6 +38,8 @@ export default function AdminDashboard() {
   const [editProfile, setEditProfile] = useState(profileDetails);
   const [editSocial, setEditSocial] = useState(socialLinks);
   const [newTool, setNewTool] = useState({ name: '', icon: '', color: '#000000' });
+  const [newToolIconFile, setNewToolIconFile] = useState(null);
+  const [isUploadingTool, setIsUploadingTool] = useState(false);
   const [editWorkPage, setEditWorkPage] = useState(workPageDetails);
 
   const handleSaveAbout = () => {
@@ -149,11 +151,48 @@ export default function AdminDashboard() {
     alert('Social links updated!');
   };
 
-  const handleAddTool = (e) => {
+  const handleAddTool = async (e) => {
     e.preventDefault();
     if (!newTool.name) return;
-    updateDesignTools([...designTools, { ...newTool, id: Date.now() }]);
+    
+    let finalIconUrl = newTool.icon;
+
+    if (newToolIconFile) {
+      setIsUploadingTool(true);
+      const formData = new FormData();
+      formData.append('image', newToolIconFile);
+      const token = localStorage.getItem('portfolio_admin_token');
+      try {
+        const res = await fetch(`${API_URL}/upload`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formData
+        });
+        if (res.ok) {
+          const data = await res.json();
+          finalIconUrl = data.url;
+        } else {
+          alert('Failed to upload tool icon.');
+          setIsUploadingTool(false);
+          return;
+        }
+      } catch (err) {
+        console.error("Tool icon upload error", err);
+        alert('Error uploading tool icon.');
+        setIsUploadingTool(false);
+        return;
+      }
+    }
+
+    if (!finalIconUrl) {
+      alert('Please provide an Icon URL or upload an image file.');
+      return;
+    }
+
+    updateDesignTools([...designTools, { ...newTool, icon: finalIconUrl, id: Date.now() }]);
     setNewTool({ name: '', icon: '', color: '#000000' });
+    setNewToolIconFile(null);
+    setIsUploadingTool(false);
     alert('Tool added successfully!');
   };
 
@@ -632,15 +671,16 @@ export default function AdminDashboard() {
               Load 20 Default Tools
             </button>
           </div>
-          <form onSubmit={handleAddTool} className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <form onSubmit={handleAddTool} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
             <input type="text" placeholder="Tool Name (e.g., Figma)" required className="p-3 border rounded" value={newTool.name} onChange={e => setNewTool({...newTool, name: e.target.value})} />
-            <input type="url" placeholder="Icon URL (cdn.simpleicons.org/...)" required className="p-3 border rounded" value={newTool.icon} onChange={e => setNewTool({...newTool, icon: e.target.value})} />
+            <input type="url" placeholder="Icon URL (Optional if uploading)" className="p-3 border rounded" value={newTool.icon} onChange={e => setNewTool({...newTool, icon: e.target.value})} />
+            <input type="file" accept="image/*" className="p-2 border rounded bg-white text-sm" onChange={e => setNewToolIconFile(e.target.files[0])} />
             <div className="flex items-center gap-2 border rounded p-2 bg-white">
               <label className="text-sm text-gray-600 flex-1 pl-2">Brand Color:</label>
               <input type="color" className="w-10 h-10 rounded cursor-pointer" value={newTool.color} onChange={e => setNewTool({...newTool, color: e.target.value})} />
             </div>
-            <button type="submit" className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
-              Add Tool
+            <button type="submit" disabled={isUploadingTool} className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 disabled:bg-gray-500">
+              {isUploadingTool ? 'Uploading...' : 'Add Tool'}
             </button>
           </form>
           <div className="space-y-4">
