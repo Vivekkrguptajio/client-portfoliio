@@ -36,7 +36,7 @@ const defaultWorkPageDetails = {
   description: "A curated collection of projects across brand strategy, visual identity, web design, development, and visual content. Each project here represents a specific brief, a specific challenge, and a specific outcome."
 };
 
-export const API_URL = 'http://localhost:5000/api';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 export function PortfolioProvider({ children }) {
   const [aboutParagraphs, setAboutParagraphs] = useState(defaultAboutParagraphs);
