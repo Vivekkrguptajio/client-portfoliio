@@ -1,5 +1,5 @@
 import { useContext, useState, useRef } from 'react';
-import { PortfolioContext, API_URL } from '../context/PortfolioContext';
+import { PortfolioContext, API_URL, defaultDesignTools } from '../context/PortfolioContext';
 
 export default function AdminDashboard() {
   const { 
@@ -37,7 +37,7 @@ export default function AdminDashboard() {
 
   const [editProfile, setEditProfile] = useState(profileDetails);
   const [editSocial, setEditSocial] = useState(socialLinks);
-  const [newTool, setNewTool] = useState({ name: '', text: 'text-gray-900', bg: 'bg-gray-100', border: 'border-gray-200', icon: 'https://cdn.simpleicons.org/react/61DAFB' });
+  const [newTool, setNewTool] = useState({ name: '', icon: '', color: '#000000' });
   const [editWorkPage, setEditWorkPage] = useState(workPageDetails);
 
   const handleSaveAbout = () => {
@@ -153,8 +153,15 @@ export default function AdminDashboard() {
     e.preventDefault();
     if (!newTool.name) return;
     updateDesignTools([...designTools, { ...newTool, id: Date.now() }]);
-    setNewTool({ name: '', text: 'text-gray-900', bg: 'bg-gray-100', border: 'border-gray-200', icon: 'https://cdn.simpleicons.org/react/61DAFB' });
+    setNewTool({ name: '', icon: '', color: '#000000' });
     alert('Tool added successfully!');
+  };
+
+  const handleLoadDefaultTools = () => {
+    if (window.confirm('This will replace your current tools with the 20 default tools. Continue?')) {
+      updateDesignTools(defaultDesignTools);
+      alert('20 Default Tools loaded successfully!');
+    }
   };
 
   const handleDeleteTool = (index) => {
@@ -616,10 +623,22 @@ export default function AdminDashboard() {
 
         {/* Manage Design Toolkit */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h2 className="text-xl font-semibold mb-4">Manage Design Toolkit</h2>
-          <form onSubmit={handleAddTool} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Manage Design Toolkit</h2>
+            <button 
+              onClick={handleLoadDefaultTools}
+              className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 text-sm font-medium"
+            >
+              Load 20 Default Tools
+            </button>
+          </div>
+          <form onSubmit={handleAddTool} className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <input type="text" placeholder="Tool Name (e.g., Figma)" required className="p-3 border rounded" value={newTool.name} onChange={e => setNewTool({...newTool, name: e.target.value})} />
             <input type="url" placeholder="Icon URL (cdn.simpleicons.org/...)" required className="p-3 border rounded" value={newTool.icon} onChange={e => setNewTool({...newTool, icon: e.target.value})} />
+            <div className="flex items-center gap-2 border rounded p-2 bg-white">
+              <label className="text-sm text-gray-600 flex-1 pl-2">Brand Color:</label>
+              <input type="color" className="w-10 h-10 rounded cursor-pointer" value={newTool.color} onChange={e => setNewTool({...newTool, color: e.target.value})} />
+            </div>
             <button type="submit" className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
               Add Tool
             </button>
@@ -629,7 +648,7 @@ export default function AdminDashboard() {
               <div key={idx} className="flex items-center justify-between p-4 border rounded-lg bg-gray-50">
                 <div className="flex items-center gap-4">
                   <img src={tool.icon} alt={tool.name} className="w-8 h-8 object-contain" />
-                  <h3 className="font-bold text-gray-900">{tool.name}</h3>
+                  <h3 className="font-bold" style={{ color: tool.color || '#111827' }}>{tool.name}</h3>
                 </div>
                 <button 
                   onClick={() => { if(window.confirm('Delete this tool?')) handleDeleteTool(idx) }}

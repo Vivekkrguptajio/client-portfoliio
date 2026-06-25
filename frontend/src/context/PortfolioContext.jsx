@@ -27,15 +27,27 @@ const defaultSocialLinks = {
   linkedin: 'https://www.linkedin.com/in/ranjeet-kumar-verma-66a866278/',
 };
 
-const defaultDesignTools = [
+export const defaultDesignTools = [
   { _id: '1', name: 'Webflow', color: '#4353FF', icon: 'https://cdn.simpleicons.org/webflow' },
   { _id: '2', name: 'Adobe XD', color: '#FF61F6', icon: 'https://cdn.simpleicons.org/adobexd' },
   { _id: '3', name: 'Notion', color: '#000000', icon: 'https://cdn.simpleicons.org/notion' },
   { _id: '4', name: 'Illustrator', color: '#FF9A00', icon: 'https://cdn.simpleicons.org/adobeillustrator' },
   { _id: '5', name: 'Photoshop', color: '#31A8FF', icon: 'https://cdn.simpleicons.org/adobephotoshop' },
   { _id: '6', name: 'Framer', color: '#0055FF', icon: 'https://cdn.simpleicons.org/framer' },
-  { _id: '7', name: 'Spline', color: '#FF00FF', icon: 'https://cdn.simpleicons.org/spline' },
-  { _id: '8', name: 'Figma', color: '#F24E1E', icon: 'https://cdn.simpleicons.org/figma' }
+  { _id: '7', name: 'Sketch', color: '#F7B500', icon: 'https://cdn.simpleicons.org/sketch' },
+  { _id: '8', name: 'Figma', color: '#F24E1E', icon: 'https://cdn.simpleicons.org/figma' },
+  { _id: '9', name: 'React', color: '#61DAFB', icon: 'https://cdn.simpleicons.org/react' },
+  { _id: '10', name: 'Tailwind', color: '#06B6D4', icon: 'https://cdn.simpleicons.org/tailwindcss' },
+  { _id: '11', name: 'Next.js', color: '#000000', icon: 'https://cdn.simpleicons.org/nextdotjs' },
+  { _id: '12', name: 'GitHub', color: '#181717', icon: 'https://cdn.simpleicons.org/github' },
+  { _id: '13', name: 'Vercel', color: '#000000', icon: 'https://cdn.simpleicons.org/vercel' },
+  { _id: '14', name: 'Node.js', color: '#339933', icon: 'https://cdn.simpleicons.org/nodedotjs' },
+  { _id: '15', name: 'MongoDB', color: '#47A248', icon: 'https://cdn.simpleicons.org/mongodb' },
+  { _id: '16', name: 'Express', color: '#000000', icon: 'https://cdn.simpleicons.org/express' },
+  { _id: '17', name: 'InVision', color: '#FF3366', icon: 'https://cdn.simpleicons.org/invision' },
+  { _id: '18', name: 'Zeplin', color: '#FDBD39', icon: 'https://cdn.simpleicons.org/zeplin' },
+  { _id: '19', name: 'WordPress', color: '#21759B', icon: 'https://cdn.simpleicons.org/wordpress' },
+  { _id: '20', name: 'ChatGPT', color: '#74AA9C', icon: 'https://cdn.simpleicons.org/openai' }
 ];
 
 const defaultWorkPageDetails = {

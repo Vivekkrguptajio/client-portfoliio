@@ -35,10 +35,17 @@ export default function Toolkit() {
           {infiniteTools.map((tool, index) => (
             <div 
               key={`${tool.id}-${index}`} 
-              className={`flex-shrink-0 flex flex-col w-40 h-40 md:w-48 md:h-48 rounded-[2rem] border items-center justify-center cursor-default ${tool.bg} ${tool.border}`}
+              className={`flex-shrink-0 flex flex-col w-40 h-40 md:w-48 md:h-48 rounded-[2rem] border items-center justify-center cursor-default ${tool.bg || ''} ${tool.border || ''}`}
+              style={{
+                backgroundColor: tool.color ? `${tool.color}0D` : undefined, // 5% opacity
+                borderColor: tool.color ? `${tool.color}33` : undefined, // 20% opacity
+              }}
             >
               <img src={tool.icon} alt={tool.name} className="w-12 h-12 md:w-16 md:h-16 mb-4 object-contain drop-shadow-sm" />
-              <span className={`font-semibold text-base md:text-lg tracking-wide ${tool.text}`}>
+              <span 
+                 className={`font-semibold text-base md:text-lg tracking-wide ${tool.text || ''}`}
+                 style={{ color: tool.color || undefined }}
+              >
                 {tool.name}
               </span>
             </div>
