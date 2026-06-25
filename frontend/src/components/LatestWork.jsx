@@ -29,12 +29,13 @@ export default function LatestWork() {
         <div className="flex flex-col gap-10">
           {works.map((work, index) => (
             <motion.div 
-              key={work.id}
+              key={work._id || work.id}
+              onClick={() => navigate(`/work/${work._id || work.id}`)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="w-full flex flex-col md:flex-row bg-[#0f0f0f] border border-[#1a1a1a] rounded-[32px] overflow-hidden"
+              className="w-full flex flex-col md:flex-row bg-[#0f0f0f] border border-[#1a1a1a] rounded-[32px] overflow-hidden cursor-pointer group hover:border-[#333] transition-colors duration-500"
             >
               {/* Left Side: Image */}
               <div className="w-full md:w-1/2 h-[300px] md:h-[450px] lg:h-[500px] p-4 md:p-6 lg:p-8">
@@ -64,7 +65,7 @@ export default function LatestWork() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-gray-400 text-sm md:text-base leading-relaxed font-sans"
+                    className="text-gray-400 text-base md:text-lg leading-relaxed font-sans"
                   >
                     {work.description}
                   </motion.p>

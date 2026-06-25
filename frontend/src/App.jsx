@@ -6,6 +6,10 @@ import AboutPage from './pages/AboutPage';
 import CustomCursor from './components/CustomCursor';
 import ScrollToTop from './components/ScrollToTop';
 
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login';
+import ProjectDetail from './pages/ProjectDetail';
+
 function App() {
   return (
     <>
@@ -15,7 +19,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/work" element={<Work />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/work/:id" element={<ProjectDetail />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
       </Routes>
     </>
   );
