@@ -16,10 +16,13 @@ export default function AdminDashboard() {
     designTools,
     updateDesignTools,
     workPageDetails,
-    updateWorkPageDetails
+    updateWorkPageDetails,
+    workShowcaseGif,
+    updateWorkShowcaseGif
   } = useContext(PortfolioContext);
 
   const [editAbout, setEditAbout] = useState(aboutParagraphs.join('\n\n'));
+  const [isUploadingGif, setIsUploadingGif] = useState(false);
   
   const [newProject, setNewProject] = useState({
     title: '', category: '', description: '', branding: '', industry: '', location: '', year: '', image: ''
@@ -158,6 +161,32 @@ export default function AdminDashboard() {
     const tools = [...designTools];
     tools.splice(index, 1);
     updateDesignTools(tools);
+  };
+
+  const handleShowcaseGifUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setIsUploadingGif(true);
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const token = localStorage.getItem('portfolio_admin_token');
+      const res = await fetch(`${API_URL}/upload`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+      });
+      if (res.ok) {
+        const data = await res.json();
+        updateWorkShowcaseGif(data.url);
+        alert('Work Showcase GIF updated successfully!');
+      } else {
+        alert('Failed to upload GIF');
+      }
+    } catch (err) {
+      alert('Error uploading GIF');
+    }
+    setIsUploadingGif(false);
   };
 
   const [isUploadingGallery, setIsUploadingGallery] = useState(false);
@@ -423,6 +452,53 @@ export default function AdminDashboard() {
           }} className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
             Save Work Page Details
           </button>
+        </div>
+
+        {/* Edit Work Showcase GIF Section */}
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <h2 className="text-xl font-semibold mb-4">Edit Work Showcase GIF</h2>
+          <p className="text-sm text-gray-500 mb-4">Upload a new GIF or Image to replace the default 'word.gif' shown above the Latest Work section.</p>
+          
+          <div className="flex flex-col md:flex-row gap-6 items-start">
+            {workShowcaseGif && (
+              <div className="w-48 h-48 rounded-lg overflow-hidden border border-gray-200 bg-gray-50 shrink-0">
+                <img src={workShowcaseGif} alt="Current Showcase GIF" className="w-full h-full object-cover" />
+              </div>
+            )}
+            
+            <div className="w-full">
+              <label className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg transition-colors ${isUploadingGif ? 'bg-gray-200 border-gray-400 cursor-not-allowed' : 'border-gray-300 bg-gray-50 hover:bg-gray-100 cursor-pointer'}`}>
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  {isUploadingGif ? (
+                    <div className="flex flex-col items-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mb-2"></div>
+                      <p className="text-sm text-gray-700 font-semibold">Uploading...</p>
+                    </div>
+                  ) : (
+                    <>
+                      <svg className="w-8 h-8 mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                      <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span> new GIF</p>
+                    </>
+                  )}
+                </div>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleShowcaseGifUpload} 
+                  className="hidden"
+                  disabled={isUploadingGif}
+                />
+              </label>
+              {workShowcaseGif && (
+                <button 
+                  onClick={() => updateWorkShowcaseGif(null)} 
+                  className="mt-4 px-4 py-2 text-sm text-red-600 bg-red-50 hover:bg-red-100 rounded transition-colors"
+                >
+                  Reset to Default GIF
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Edit About Section */}

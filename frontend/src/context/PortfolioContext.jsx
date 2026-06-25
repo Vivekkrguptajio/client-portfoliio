@@ -45,6 +45,7 @@ export function PortfolioProvider({ children }) {
   const [socialLinks, setSocialLinks] = useState(defaultSocialLinks);
   const [designTools, setDesignTools] = useState(defaultDesignTools);
   const [workPageDetails, setWorkPageDetails] = useState(defaultWorkPageDetails);
+  const [workShowcaseGif, setWorkShowcaseGif] = useState(null);
   
   const [loading, setLoading] = useState(true);
 
@@ -79,6 +80,7 @@ export function PortfolioProvider({ children }) {
           fetchSetting('socialLinks', setSocialLinks, defaultSocialLinks, 'portfolio_social_v17'),
           fetchSetting('designTools', setDesignTools, defaultDesignTools, 'portfolio_tools_v17'),
           fetchSetting('workPageDetails', setWorkPageDetails, defaultWorkPageDetails, 'portfolio_workpage_v17'),
+          fetchSetting('workShowcaseGif', setWorkShowcaseGif, null, 'portfolio_workshowcasegif_v17'),
         ]);
         
       } catch (error) {
@@ -101,6 +103,9 @@ export function PortfolioProvider({ children }) {
 
         const cachedWorkPage = localStorage.getItem('portfolio_workpage_v17');
         if (cachedWorkPage) setWorkPageDetails(JSON.parse(cachedWorkPage));
+
+        const cachedGif = localStorage.getItem('portfolio_workshowcasegif_v17');
+        if (cachedGif) setWorkShowcaseGif(JSON.parse(cachedGif));
       } finally {
         setLoading(false);
       }
@@ -150,7 +155,7 @@ export function PortfolioProvider({ children }) {
       });
       if (res.ok) {
         const newProject = await res.json();
-        setProjects([newProject, ...projects]);
+        setProjects([...projects, newProject]);
       } else if (res.status === 401) {
         localStorage.removeItem('portfolio_admin_token');
         alert('Session expired. Please login again.');
@@ -259,6 +264,12 @@ export function PortfolioProvider({ children }) {
     localStorage.setItem('portfolio_workpage_v17', JSON.stringify(newDetails));
   };
 
+  const updateWorkShowcaseGif = (newGifUrl) => {
+    setWorkShowcaseGif(newGifUrl);
+    saveSetting('workShowcaseGif', newGifUrl);
+    localStorage.setItem('portfolio_workshowcasegif_v17', JSON.stringify(newGifUrl));
+  };
+
   return (
     <PortfolioContext.Provider value={{
       aboutParagraphs,
@@ -274,7 +285,9 @@ export function PortfolioProvider({ children }) {
       designTools,
       updateDesignTools,
       workPageDetails,
-      updateWorkPageDetails
+      updateWorkPageDetails,
+      workShowcaseGif,
+      updateWorkShowcaseGif
     }}>
       {children}
     </PortfolioContext.Provider>

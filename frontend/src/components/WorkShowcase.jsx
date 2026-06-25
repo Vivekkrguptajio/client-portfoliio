@@ -1,8 +1,10 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useContext } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import wordGif from '../assets/word.gif'
+import { PortfolioContext } from '../context/PortfolioContext'
 
 export default function WorkShowcase() {
+  const { workShowcaseGif } = useContext(PortfolioContext)
   const containerRef = useRef(null)
   
   // Use state to track window size for dynamic width/height calculations
@@ -54,7 +56,7 @@ export default function WorkShowcase() {
         >
           <motion.img 
             style={{ scale: imageScale }}
-            src={wordGif} 
+            src={workShowcaseGif || wordGif} 
             alt="Work Showcase" 
             className="w-full h-full object-cover" 
           />

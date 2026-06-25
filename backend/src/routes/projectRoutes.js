@@ -7,7 +7,7 @@ const { protect } = require('../middleware/authMiddleware');
 // Get all projects
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    const projects = await Project.find().sort({ createdAt: 1 });
     res.json(projects);
   } catch (error) {
     res.status(500).json({ message: error.message });
