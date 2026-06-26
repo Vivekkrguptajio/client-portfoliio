@@ -45,11 +45,16 @@ body {
   color: #101828;
   background: #fff;
   overflow-x: hidden;
-  cursor: none;
 }
 
-* {
-  cursor: none !important;
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  * {
+    cursor: none !important;
+  }
 }
 
 ::selection {
