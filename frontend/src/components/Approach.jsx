@@ -70,7 +70,7 @@ export default function Approach() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="w-full flex flex-row items-center justify-between px-[24px]"
+          className="w-full flex flex-row flex-wrap items-center justify-center sm:justify-between gap-6 px-2 md:px-[24px]"
         >
           {icons.map((item, index) => (
             <motion.div key={index} variants={itemVariants} className="relative group opacity-80 hover:opacity-100 transition-opacity duration-300 w-24 h-24 flex items-center justify-center">

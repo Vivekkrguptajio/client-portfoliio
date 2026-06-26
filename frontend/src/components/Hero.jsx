@@ -58,7 +58,7 @@ export default function Hero({ startAnimation }) {
   return (
     <section 
       id="home" 
-      className="min-h-screen flex flex-col items-center justify-center pt-10 pb-4 px-5 md:px-20 bg-white relative"
+      className="min-h-screen flex flex-col items-center justify-center pt-24 pb-8 px-4 md:px-20 bg-white relative"
     >
       {/* Image + Text Overlay Container */}
       <div className={`relative flex flex-col items-center mt-6 md:mt-10 ${startAnimation ? 'animate-fade-up' : 'opacity-0'}`}>
@@ -69,22 +69,22 @@ export default function Hero({ startAnimation }) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{ transform: `translate(${imgPos.x}px, ${Math.min(imgPos.y, 0)}px)` }}
-          className="max-h-[55vh] w-auto object-contain select-none transition-transform duration-75 ease-out origin-bottom"
+          className="max-h-[40vh] md:max-h-[55vh] w-auto object-contain select-none transition-transform duration-75 ease-out origin-bottom"
         />
 
         {/* Heading - Blur Reveal Letter by Letter */}
         <motion.div 
-          className="text-center -mt-4 md:-mt-6 relative z-10 flex flex-col items-center"
+          className="text-center -mt-2 md:-mt-6 relative z-10 flex flex-col items-center"
           variants={containerVariants}
           initial="hidden"
           animate={startAnimation ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl sm:text-6xl md:text-[80px] font-mondwest text-[#111111] leading-none tracking-normal flex justify-center">
+          <h1 className="text-4xl sm:text-6xl md:text-[80px] font-mondwest text-[#111111] leading-none tracking-normal flex justify-center">
             {"Simplicity".split("").map((letter, i) => (
               <motion.span key={`h1-${i}`} variants={wordVariants}>{letter}</motion.span>
             ))}
           </h1>
-          <h2 className="text-4xl sm:text-5xl md:text-[56px] text-[#111111] leading-none -mt-1 md:-mt-3 flex flex-wrap items-center justify-center">
+          <h2 className="text-3xl sm:text-5xl md:text-[56px] text-[#111111] leading-none mt-1 md:-mt-3 flex flex-wrap items-center justify-center">
             <div className="flex mr-1 md:mr-2 font-caslon italic font-normal tracking-wide">
               {profileDetails?.subtitle?.split(' ').slice(0, 2).join(' ').split('').map((char, i) => (
                 <motion.span key={`sub1-${i}`} variants={wordVariants}>
@@ -133,14 +133,14 @@ export default function Hero({ startAnimation }) {
       >
         <a 
           href="#about" 
-          className="h-[44px] flex items-center justify-center bg-[#1C1C1C] text-white text-[13px] md:text-[14px] font-medium tracking-wide px-4 rounded-xl hover:bg-black hover:shadow-lg transition-all duration-300 active:scale-[0.97]"
+          className="h-[44px] flex items-center justify-center bg-[#1C1C1C] text-white text-[13px] md:text-[14px] font-medium tracking-wide px-6 md:px-8 rounded-full hover:bg-black hover:shadow-lg transition-all duration-300 active:scale-[0.97]"
         >
-          EXPLOR WORK
+          EXPLORE WORK
         </a>
         <a 
           href={profileDetails?.resumeLink} 
           download={profileDetails?.resumeLink !== '#' ? 'Resume.pdf' : undefined}
-          className="h-[44px] flex items-center justify-center bg-[#F2F2F2] text-[#1C1C1C] text-[13px] md:text-[14px] font-medium tracking-wide px-4 rounded-xl hover:bg-[#E5E5E5] transition-all duration-300 active:scale-[0.97]"
+          className="h-[44px] flex items-center justify-center bg-[#F2F2F2] text-[#1C1C1C] text-[13px] md:text-[14px] font-medium tracking-wide px-6 md:px-8 rounded-full hover:bg-[#E5E5E5] transition-all duration-300 active:scale-[0.97]"
         >
           RESUME
         </a>

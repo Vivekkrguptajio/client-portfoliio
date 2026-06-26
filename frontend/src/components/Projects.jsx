@@ -65,7 +65,7 @@ export default function Projects() {
           {/* Left Side: Section Header */}
           <div className="w-full md:w-[40%] flex-shrink-0 z-10 pt-20 md:pt-0">
             <div className="mb-8 md:mb-10">
-              <h2 className="text-5xl md:text-[5rem] font-neuebit leading-none tracking-wide">
+              <h2 className="text-4xl sm:text-5xl md:text-[5rem] font-neuebit leading-none tracking-wide">
                 <span className="text-gray-700">Featured </span><br className="hidden md:block" />
                 <span>Projects</span>
               </h2>

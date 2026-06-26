@@ -103,17 +103,17 @@ export default function Navbar({ scrolled, activeSection, loading, isDarkTheme =
         </button>
       </nav>
 
-      {/* Mobile Nav Menu */}
-      <div className={`md:hidden glass-navbar border-t border-gray-100 overflow-hidden transition-all duration-300 ${
-        mobileMenu ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
+      {/* Mobile Nav Menu Dropdown */}
+      <div className={`md:hidden absolute top-[calc(100%+12px)] left-4 right-4 rounded-2xl glass-navbar border-t border-gray-100 overflow-hidden transition-all duration-300 shadow-xl ${
+        mobileMenu ? 'max-h-60 opacity-100 py-2' : 'max-h-0 opacity-0 py-0 border-transparent'
       }`}>
-        <div className="flex flex-col px-6 py-4 gap-4">
+        <div className="flex flex-col px-4 py-2 gap-3">
           {navLinks.map((link) => (
             <a 
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenu(false)}
-              className="text-xl font-neuebit text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-lg font-neuebit text-gray-700 hover:text-black hover:bg-gray-50/50 rounded-xl px-4 py-2 transition-all"
             >
               {link.name}
             </a>
@@ -123,7 +123,7 @@ export default function Navbar({ scrolled, activeSection, loading, isDarkTheme =
             target="_blank" 
             rel="noreferrer"
             onClick={() => setMobileMenu(false)}
-            className="text-xl font-neuebit text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-lg font-neuebit text-gray-700 hover:text-black hover:bg-gray-50/50 rounded-xl px-4 py-2 transition-all"
           >
             RESUME
           </a>

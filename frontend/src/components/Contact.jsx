@@ -34,7 +34,7 @@ export default function Contact() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h2 className="text-[3.5rem] md:text-[70px] text-black flex flex-col tracking-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-[70px] text-black flex flex-col tracking-tight">
               <span className="font-mondwest leading-none mb-2 md:mb-4">Let's talk for</span>
               <span className="leading-none">
                 <span className="font-caslon italic font-medium pr-3 md:pr-4">Something</span>
