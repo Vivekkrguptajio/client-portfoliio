@@ -26,8 +26,8 @@ export default function Approach() {
   };
 
   return (
-    <section id="approach" className="w-full bg-white text-black py-20 md:py-32 px-6 md:px-20 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col gap-20 md:gap-32">
+    <section id="approach" className="w-full bg-white text-black py-24 md:py-32 px-6 md:px-20 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col gap-24 md:gap-40">
         
         <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start">
           {/* Left Side: Small Title */}
@@ -70,7 +70,7 @@ export default function Approach() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="w-full flex flex-row flex-wrap items-center justify-center sm:justify-between gap-6 px-2 md:px-[24px]"
+          className="w-full flex flex-row flex-wrap items-center justify-center sm:justify-between gap-12 md:gap-6 px-2 md:px-[24px]"
         >
           {icons.map((item, index) => (
             <motion.div key={index} variants={itemVariants} className="relative group opacity-80 hover:opacity-100 transition-opacity duration-300 w-24 h-24 flex items-center justify-center">
