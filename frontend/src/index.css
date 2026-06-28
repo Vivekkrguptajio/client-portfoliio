@@ -170,3 +170,16 @@ body {
 .animate-marquee {
   animation: marquee 55s linear infinite;
 }
+
+@keyframes marquee-viewport {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-viewport {
+  animation: marquee-viewport 25s linear infinite;
+}

@@ -34,7 +34,7 @@ export default function Toolkit() {
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
       >
         {/* Marquee Wrapper */}
-        <div className={`flex w-max gap-6 md:gap-8 px-4 ${isMarquee ? 'animate-marquee' : 'w-full justify-center'}`}>
+        <div className={`flex w-max gap-6 md:gap-8 px-4 ${isMarquee ? 'animate-marquee' : 'animate-marquee-viewport'}`}>
           {toolsToShow.map((tool, index) => (
             <div 
               key={`${tool.id || tool._id}-${index}`} 
