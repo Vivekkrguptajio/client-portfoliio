@@ -5,8 +5,11 @@ import { motion } from 'framer-motion'
 export default function Toolkit() {
   const { designTools } = useContext(PortfolioContext)
 
-  // Double the array for the infinite scroll trick
-  const infiniteTools = [...designTools, ...designTools, ...designTools, ...designTools]
+  // Only apply infinite scroll if we have enough tools to fill the screen
+  const isMarquee = designTools.length > 5;
+  const toolsToShow = isMarquee 
+    ? [...designTools, ...designTools, ...designTools, ...designTools] 
+    : designTools;
 
   return (
     <section className="w-full bg-white py-28 my-12 overflow-hidden border-t border-gray-100">
@@ -31,10 +34,10 @@ export default function Toolkit() {
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
       >
         {/* Marquee Wrapper */}
-        <div className="flex w-max animate-marquee gap-6 md:gap-8 px-4">
-          {infiniteTools.map((tool, index) => (
+        <div className={`flex w-max gap-6 md:gap-8 px-4 ${isMarquee ? 'animate-marquee' : 'w-full justify-center'}`}>
+          {toolsToShow.map((tool, index) => (
             <div 
-              key={`${tool.id}-${index}`} 
+              key={`${tool.id || tool._id}-${index}`} 
               className={`flex-shrink-0 flex flex-col w-40 h-40 md:w-48 md:h-48 rounded-[2rem] border items-center justify-center cursor-default ${tool.bg || ''} ${tool.border || ''}`}
               style={{
                 backgroundColor: tool.color ? `${tool.color}0D` : undefined, // 5% opacity
