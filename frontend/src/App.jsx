@@ -9,10 +9,11 @@ import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import ProjectDetail from './pages/ProjectDetail';
+import { ReactLenis } from 'lenis/react';
 
 function App() {
   return (
-    <>
+    <ReactLenis root>
       <CustomCursor />
       <ScrollToTop />
       <Routes>
@@ -27,7 +28,7 @@ function App() {
           </ProtectedRoute>
         } />
       </Routes>
-    </>
+    </ReactLenis>
   );
 }
 
