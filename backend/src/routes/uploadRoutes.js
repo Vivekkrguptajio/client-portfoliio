@@ -19,8 +19,8 @@ router.post('/', protect, handleUpload, (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
-    // Return the Cloudinary URL
-    res.json({ url: req.file.path });
+    // Return the Cloudinary URL and ID
+    res.json({ url: req.file.path, cloudinary_id: req.file.filename });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

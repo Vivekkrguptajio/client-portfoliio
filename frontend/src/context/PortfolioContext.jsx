@@ -58,6 +58,25 @@ const defaultWorkPageDetails = {
 
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+const CACHE_KEYS = {
+  projects: 'portfolio_projects_v18',
+  about: 'portfolio_about_v18',
+  profile: 'portfolio_profile_v18',
+  social: 'portfolio_social_v18',
+  tools: 'portfolio_tools_v18',
+  workpage: 'portfolio_workpage_v18',
+  workshowcasegif: 'portfolio_workshowcasegif_v18'
+};
+
+const safeJSONParse = (str, fallback) => {
+  try {
+    return str ? JSON.parse(str) : fallback;
+  } catch (e) {
+    console.error('Failed to parse JSON from local storage:', e);
+    return fallback;
+  }
+};
+
 export function PortfolioProvider({ children }) {
   const [aboutParagraphs, setAboutParagraphs] = useState(defaultAboutParagraphs);
   const [projects, setProjects] = useState(defaultProjects);
@@ -78,54 +97,59 @@ export function PortfolioProvider({ children }) {
           const projData = await projRes.json();
           setProjects(projData);
         } else {
-          const cachedProj = localStorage.getItem('portfolio_projects_v17');
-          if (cachedProj) setProjects(JSON.parse(cachedProj));
+          const cachedProj = localStorage.getItem(CACHE_KEYS.projects);
+          setProjects(safeJSONParse(cachedProj, []));
         }
 
         // Fetch Settings
         const fetchSetting = async (key, setter, defaultVal, localKey) => {
-          const res = await fetch(`${API_URL}/settings/${key}`);
-          if (res.ok) {
-            const data = await res.json();
-            setter(data);
-          } else {
+          try {
+            const res = await fetch(`${API_URL}/settings/${key}`);
+            if (res.ok) {
+              const data = await res.json();
+              setter(data);
+            } else {
+              const cached = localKey ? localStorage.getItem(localKey) : null;
+              setter(safeJSONParse(cached, defaultVal));
+            }
+          } catch (error) {
+            console.error(`Failed to fetch setting ${key}:`, error);
             const cached = localKey ? localStorage.getItem(localKey) : null;
-            setter(cached ? JSON.parse(cached) : defaultVal); // Fallback to localStorage then default
+            setter(safeJSONParse(cached, defaultVal));
           }
         };
 
         await Promise.all([
-          fetchSetting('aboutParagraphs', setAboutParagraphs, defaultAboutParagraphs, 'portfolio_about_v17'),
-          fetchSetting('profileDetails', setProfileDetails, defaultProfileDetails, 'portfolio_profile_v17'),
-          fetchSetting('socialLinks', setSocialLinks, defaultSocialLinks, 'portfolio_social_v17'),
-          fetchSetting('designTools', setDesignTools, defaultDesignTools, 'portfolio_tools_v17'),
-          fetchSetting('workPageDetails', setWorkPageDetails, defaultWorkPageDetails, 'portfolio_workpage_v17'),
-          fetchSetting('workShowcaseGif', setWorkShowcaseGif, null, 'portfolio_workshowcasegif_v17'),
+          fetchSetting('aboutParagraphs', setAboutParagraphs, defaultAboutParagraphs, CACHE_KEYS.about),
+          fetchSetting('profileDetails', setProfileDetails, defaultProfileDetails, CACHE_KEYS.profile),
+          fetchSetting('socialLinks', setSocialLinks, defaultSocialLinks, CACHE_KEYS.social),
+          fetchSetting('designTools', setDesignTools, defaultDesignTools, CACHE_KEYS.tools),
+          fetchSetting('workPageDetails', setWorkPageDetails, defaultWorkPageDetails, CACHE_KEYS.workpage),
+          fetchSetting('workShowcaseGif', setWorkShowcaseGif, '', CACHE_KEYS.workshowcasegif),
         ]);
         
       } catch (error) {
         console.error('Failed to fetch from backend, using defaults/local cache.', error);
-        // Fallback to localStorage if backend is down
-        const cachedProjects = localStorage.getItem('portfolio_projects_v18');
-        if (cachedProjects) setProjects(JSON.parse(cachedProjects));
+        const cachedProjects = localStorage.getItem(CACHE_KEYS.projects);
+        setProjects(safeJSONParse(cachedProjects, []));
         
-        const cachedAbout = localStorage.getItem('portfolio_about_v17');
-        if (cachedAbout) setAboutParagraphs(JSON.parse(cachedAbout));
+        const cachedAbout = localStorage.getItem(CACHE_KEYS.about);
+        setAboutParagraphs(safeJSONParse(cachedAbout, defaultAboutParagraphs));
 
-        const cachedProfile = localStorage.getItem('portfolio_profile_v17');
-        if (cachedProfile) setProfileDetails(JSON.parse(cachedProfile));
+        const cachedProfile = localStorage.getItem(CACHE_KEYS.profile);
+        setProfileDetails(safeJSONParse(cachedProfile, defaultProfileDetails));
 
-        const cachedSocial = localStorage.getItem('portfolio_social_v17');
-        if (cachedSocial) setSocialLinks(JSON.parse(cachedSocial));
+        const cachedSocial = localStorage.getItem(CACHE_KEYS.social);
+        setSocialLinks(safeJSONParse(cachedSocial, defaultSocialLinks));
 
-        const cachedTools = localStorage.getItem('portfolio_tools_v17');
-        if (cachedTools) setDesignTools(JSON.parse(cachedTools));
+        const cachedTools = localStorage.getItem(CACHE_KEYS.tools);
+        setDesignTools(safeJSONParse(cachedTools, defaultDesignTools));
 
-        const cachedWorkPage = localStorage.getItem('portfolio_workpage_v17');
-        if (cachedWorkPage) setWorkPageDetails(JSON.parse(cachedWorkPage));
+        const cachedWorkPage = localStorage.getItem(CACHE_KEYS.workpage);
+        setWorkPageDetails(safeJSONParse(cachedWorkPage, defaultWorkPageDetails));
 
-        const cachedGif = localStorage.getItem('portfolio_workshowcasegif_v17');
-        if (cachedGif) setWorkShowcaseGif(JSON.parse(cachedGif));
+        const cachedGif = localStorage.getItem(CACHE_KEYS.workshowcasegif);
+        setWorkShowcaseGif(safeJSONParse(cachedGif, ''));
       } finally {
         setLoading(false);
       }
@@ -160,14 +184,16 @@ export function PortfolioProvider({ children }) {
   const updateAboutParagraphs = (newParagraphs) => {
     setAboutParagraphs(newParagraphs);
     saveSetting('aboutParagraphs', newParagraphs);
-    localStorage.setItem('portfolio_about_v17', JSON.stringify(newParagraphs)); // fallback
+    localStorage.setItem(CACHE_KEYS.about, JSON.stringify(newParagraphs));
   };
 
   const addProject = async (formData, onProgress) => {
     try {
       const token = localStorage.getItem('portfolio_admin_token');
       const res = await uploadWithProgress(`${API_URL}/projects`, formData, token, 'POST', onProgress);
-      setProjects([...projects, res]);
+      const newProjects = [...projects, res];
+      setProjects(newProjects);
+      localStorage.setItem(CACHE_KEYS.projects, JSON.stringify(newProjects));
     } catch (error) {
       if (error.status === 401) {
         localStorage.removeItem('portfolio_admin_token');
@@ -185,7 +211,9 @@ export function PortfolioProvider({ children }) {
     try {
       const token = localStorage.getItem('portfolio_admin_token');
       const res = await uploadWithProgress(`${API_URL}/projects/${id}`, formData, token, 'PUT', onProgress);
-      setProjects(projects.map(p => p._id === id ? res : p));
+      const updatedProjects = projects.map(p => (p._id === id || p.id === id) ? res : p);
+      setProjects(updatedProjects);
+      localStorage.setItem(CACHE_KEYS.projects, JSON.stringify(updatedProjects));
     } catch (error) {
       if (error.status === 401) {
         localStorage.removeItem('portfolio_admin_token');
@@ -196,7 +224,9 @@ export function PortfolioProvider({ children }) {
          // We should CREATE it instead!
          try {
            const createRes = await uploadWithProgress(`${API_URL}/projects`, formData, token, 'POST', onProgress);
-           setProjects(projects.map(p => (p._id === id || p.id === id) ? createRes : p));
+           const fallbackProjects = projects.map(p => (p._id === id || p.id === id) ? createRes : p);
+           setProjects(fallbackProjects);
+           localStorage.setItem(CACHE_KEYS.projects, JSON.stringify(fallbackProjects));
          } catch (createErr) {
            alert('Failed to save local project to database');
          }
@@ -218,7 +248,9 @@ export function PortfolioProvider({ children }) {
         }
       });
       if (res.ok) {
-        setProjects(projects.filter(p => p._id !== id));
+        const newProjects = projects.filter(p => p._id !== id);
+        setProjects(newProjects);
+        localStorage.setItem(CACHE_KEYS.projects, JSON.stringify(newProjects));
       } else if (res.status === 401) {
         localStorage.removeItem('portfolio_admin_token');
         alert('Session expired. Please login again.');
@@ -228,6 +260,7 @@ export function PortfolioProvider({ children }) {
          const newProjects = [...projects];
          newProjects.splice(fallbackIndex, 1);
          setProjects(newProjects);
+         localStorage.setItem(CACHE_KEYS.projects, JSON.stringify(newProjects));
       }
     } catch (error) {
       console.error('Error deleting project:', error);
@@ -241,31 +274,31 @@ export function PortfolioProvider({ children }) {
   const updateProfileDetails = (newDetails) => {
     setProfileDetails(newDetails);
     saveSetting('profileDetails', newDetails);
-    localStorage.setItem('portfolio_profile_v17', JSON.stringify(newDetails));
+    localStorage.setItem(CACHE_KEYS.profile, JSON.stringify(newDetails));
   };
 
   const updateSocialLinks = (newLinks) => {
     setSocialLinks(newLinks);
     saveSetting('socialLinks', newLinks);
-    localStorage.setItem('portfolio_social_v17', JSON.stringify(newLinks));
+    localStorage.setItem(CACHE_KEYS.social, JSON.stringify(newLinks));
   };
 
   const updateDesignTools = (newTools) => {
     setDesignTools(newTools);
     saveSetting('designTools', newTools);
-    localStorage.setItem('portfolio_tools_v17', JSON.stringify(newTools));
+    localStorage.setItem(CACHE_KEYS.tools, JSON.stringify(newTools));
   };
 
   const updateWorkPageDetails = (newDetails) => {
     setWorkPageDetails(newDetails);
     saveSetting('workPageDetails', newDetails);
-    localStorage.setItem('portfolio_workpage_v17', JSON.stringify(newDetails));
+    localStorage.setItem(CACHE_KEYS.workpage, JSON.stringify(newDetails));
   };
 
   const updateWorkShowcaseGif = (newGifUrl) => {
     setWorkShowcaseGif(newGifUrl);
     saveSetting('workShowcaseGif', newGifUrl);
-    localStorage.setItem('portfolio_workshowcasegif_v17', JSON.stringify(newGifUrl));
+    localStorage.setItem(CACHE_KEYS.workshowcasegif, JSON.stringify(newGifUrl));
   };
 
   return (

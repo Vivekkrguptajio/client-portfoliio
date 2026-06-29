@@ -268,7 +268,7 @@ export default function AdminDashboard() {
         try {
           setGalleryUploadProgressPercent(0);
           const data = await uploadWithProgress(`${API_URL}/upload`, formData, token, 'POST', (percent) => setGalleryUploadProgressPercent(percent));
-          newImages.push({ type: 'image', content: data.url });
+          newImages.push({ type: 'image', content: data.url, cloudinary_id: data.cloudinary_id });
         } catch (err) {
           console.error("Gallery upload error", err);
         }

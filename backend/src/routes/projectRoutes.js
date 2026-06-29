@@ -75,7 +75,22 @@ router.put('/:id', protect, handleUpload, async (req, res) => {
     }
     
     if (contentBlocks) {
-      project.contentBlocks = typeof contentBlocks === 'string' ? JSON.parse(contentBlocks) : contentBlocks;
+      const parsedContentBlocks = typeof contentBlocks === 'string' ? JSON.parse(contentBlocks) : contentBlocks;
+      
+      if (project.contentBlocks) {
+        const newIds = parsedContentBlocks.filter(b => b.type === 'image' && b.cloudinary_id).map(b => b.cloudinary_id);
+        const oldIds = project.contentBlocks.filter(b => b.type === 'image' && b.cloudinary_id).map(b => b.cloudinary_id);
+        
+        const deletedIds = oldIds.filter(id => !newIds.includes(id));
+        for (const id of deletedIds) {
+          try {
+            await cloudinary.uploader.destroy(id);
+          } catch (e) {
+            console.error('Failed to destroy removed block image', e);
+          }
+        }
+      }
+      project.contentBlocks = parsedContentBlocks;
     }
 
     if (req.file) {
@@ -102,7 +117,23 @@ router.delete('/:id', protect, async (req, res) => {
     if (!project) return res.status(404).json({ message: 'Project not found' });
 
     if (project.cloudinary_id) {
-      await cloudinary.uploader.destroy(project.cloudinary_id);
+      try {
+        await cloudinary.uploader.destroy(project.cloudinary_id);
+      } catch (e) {
+        console.error('Failed to destroy main project image', e);
+      }
+    }
+    
+    if (project.contentBlocks && project.contentBlocks.length > 0) {
+      for (const block of project.contentBlocks) {
+        if (block.type === 'image' && block.cloudinary_id) {
+          try {
+            await cloudinary.uploader.destroy(block.cloudinary_id);
+          } catch (e) {
+            console.error('Failed to destroy block image', e);
+          }
+        }
+      }
     }
     
     await Project.findByIdAndDelete(req.params.id);

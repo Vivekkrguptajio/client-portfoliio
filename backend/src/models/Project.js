@@ -13,7 +13,8 @@ const projectSchema = new mongoose.Schema({
   cloudinary_id: { type: String }, // For deletion
   contentBlocks: [{
     type: { type: String, enum: ['text', 'image', 'youtube'] },
-    content: { type: String }
+    content: { type: String },
+    cloudinary_id: { type: String }
   }],
 }, { timestamps: true });
 
