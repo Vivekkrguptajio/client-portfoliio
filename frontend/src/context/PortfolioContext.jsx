@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { uploadWithProgress } from '../utils/uploadWithProgress';
 
 export const PortfolioContext = createContext();
 
@@ -162,72 +163,50 @@ export function PortfolioProvider({ children }) {
     localStorage.setItem('portfolio_about_v17', JSON.stringify(newParagraphs)); // fallback
   };
 
-  const addProject = async (formData) => {
+  const addProject = async (formData, onProgress) => {
     try {
       const token = localStorage.getItem('portfolio_admin_token');
-      const res = await fetch(`${API_URL}/projects`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData, // FormData sends multipart/form-data
-      });
-      if (res.ok) {
-        const newProject = await res.json();
-        setProjects([...projects, newProject]);
-      } else if (res.status === 401) {
+      const res = await uploadWithProgress(`${API_URL}/projects`, formData, token, 'POST', onProgress);
+      setProjects([...projects, res]);
+    } catch (error) {
+      if (error.status === 401) {
         localStorage.removeItem('portfolio_admin_token');
         alert('Session expired. Please login again.');
         window.location.href = '/admin/login';
       } else {
-        alert('Failed to add project to backend');
+        console.error('Error adding project:', error);
+        alert(error.message || 'Failed to add project to backend');
       }
-    } catch (error) {
-      console.error('Error adding project:', error);
-      alert('Backend not connected! Check console.');
     }
   };
 
-  const updateProject = async (id, formData) => {
+
+  const updateProject = async (id, formData, onProgress) => {
     try {
       const token = localStorage.getItem('portfolio_admin_token');
-      const res = await fetch(`${API_URL}/projects/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData,
-      });
-      if (res.ok) {
-        const updatedProject = await res.json();
-        setProjects(projects.map(p => p._id === id ? updatedProject : p));
-      } else if (res.status === 401) {
+      const res = await uploadWithProgress(`${API_URL}/projects/${id}`, formData, token, 'PUT', onProgress);
+      setProjects(projects.map(p => p._id === id ? res : p));
+    } catch (error) {
+      if (error.status === 401) {
         localStorage.removeItem('portfolio_admin_token');
         alert('Session expired. Please login again.');
         window.location.href = '/admin/login';
-      } else if (res.status === 404) {
+      } else if (error.status === 404) {
          // Project not found in backend. It's a local/default project.
          // We should CREATE it instead!
-         const createRes = await fetch(`${API_URL}/projects`, {
-           method: 'POST',
-           headers: { 'Authorization': `Bearer ${token}` },
-           body: formData
-         });
-         if (createRes.ok) {
-           const newProject = await createRes.json();
-           setProjects(projects.map(p => (p._id === id || p.id === id) ? newProject : p));
-         } else {
+         try {
+           const createRes = await uploadWithProgress(`${API_URL}/projects`, formData, token, 'POST', onProgress);
+           setProjects(projects.map(p => (p._id === id || p.id === id) ? createRes : p));
+         } catch (createErr) {
            alert('Failed to save local project to database');
          }
       } else {
-        const errorData = await res.json().catch(() => ({}));
-        alert(`Failed to update project: ${errorData.message || res.statusText}`);
+        console.error('Error updating project:', error);
+        alert(`Failed to update project: ${error.message || 'Unknown error'}`);
       }
-    } catch (error) {
-      console.error('Error updating project:', error);
-      alert('Backend not connected!');
     }
   };
+
 
   const deleteProject = async (id, fallbackIndex) => {
     try {

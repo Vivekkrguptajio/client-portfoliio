@@ -1,5 +1,6 @@
 import { useContext, useState, useRef } from 'react';
 import { PortfolioContext, API_URL, defaultDesignTools } from '../context/PortfolioContext';
+import { uploadWithProgress } from '../utils/uploadWithProgress';
 
 export default function AdminDashboard() {
   const { 
@@ -23,23 +24,29 @@ export default function AdminDashboard() {
 
   const [editAbout, setEditAbout] = useState(aboutParagraphs.join('\n\n'));
   const [isUploadingGif, setIsUploadingGif] = useState(false);
+  const [gifUploadProgress, setGifUploadProgress] = useState(0);
   
   const [newProject, setNewProject] = useState({
     title: '', category: '', description: '', branding: '', industry: '', location: '', year: '', image: ''
   });
   const [newProjectImageFile, setNewProjectImageFile] = useState(null);
   const [newContentBlocks, setNewContentBlocks] = useState([]);
+  const [isAddingProject, setIsAddingProject] = useState(false);
+  const [projectUploadProgress, setProjectUploadProgress] = useState(0);
 
   const [editingProjectIndex, setEditingProjectIndex] = useState(null);
   const [editingProjectData, setEditingProjectData] = useState(null);
   const [editingProjectImageFile, setEditingProjectImageFile] = useState(null);
   const [editingContentBlocks, setEditingContentBlocks] = useState([]);
+  const [isUpdatingProject, setIsUpdatingProject] = useState(false);
+  const [editProjectUploadProgress, setEditProjectUploadProgress] = useState(0);
 
   const [editProfile, setEditProfile] = useState(profileDetails);
   const [editSocial, setEditSocial] = useState(socialLinks);
   const [newTool, setNewTool] = useState({ name: '', icon: '', color: '#000000' });
   const [newToolIconFile, setNewToolIconFile] = useState(null);
   const [isUploadingTool, setIsUploadingTool] = useState(false);
+  const [toolUploadProgress, setToolUploadProgress] = useState(0);
   const [editWorkPage, setEditWorkPage] = useState(workPageDetails);
 
   const handleSaveAbout = () => {
@@ -66,13 +73,17 @@ export default function AdminDashboard() {
     }
     formData.append('contentBlocks', JSON.stringify(newContentBlocks));
 
-    await addProject(formData);
+    setIsAddingProject(true);
+    setProjectUploadProgress(0);
+    await addProject(formData, (percent) => setProjectUploadProgress(percent));
+    setIsAddingProject(false);
     
     setNewProject({
       title: '', category: '', description: '', industry: '', location: '', year: '', tags: '', image: ''
     });
     setNewProjectImageFile(null);
     setNewContentBlocks([]);
+    setProjectUploadProgress(0);
     alert('Project successfully saved!');
   };
 
@@ -109,12 +120,16 @@ export default function AdminDashboard() {
     formData.append('contentBlocks', JSON.stringify(editingContentBlocks));
     
     const projectId = projects[editingProjectIndex]._id || projects[editingProjectIndex].id;
-    await updateProject(projectId, formData);
+    setIsUpdatingProject(true);
+    setEditProjectUploadProgress(0);
+    await updateProject(projectId, formData, (percent) => setEditProjectUploadProgress(percent));
+    setIsUpdatingProject(false);
     
     setEditingProjectIndex(null);
     setEditingProjectData(null);
     setEditingProjectImageFile(null);
     setEditingContentBlocks([]);
+    setEditProjectUploadProgress(0);
     alert('Project successfully updated!');
   };
 
@@ -163,19 +178,9 @@ export default function AdminDashboard() {
       formData.append('image', newToolIconFile);
       const token = localStorage.getItem('portfolio_admin_token');
       try {
-        const res = await fetch(`${API_URL}/upload`, {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${token}` },
-          body: formData
-        });
-        if (res.ok) {
-          const data = await res.json();
-          finalIconUrl = data.url;
-        } else {
-          alert('Failed to upload tool icon.');
-          setIsUploadingTool(false);
-          return;
-        }
+        setToolUploadProgress(0);
+        const data = await uploadWithProgress(`${API_URL}/upload`, formData, token, 'POST', (percent) => setToolUploadProgress(percent));
+        finalIconUrl = data.url;
       } catch (err) {
         console.error("Tool icon upload error", err);
         alert('Error uploading tool icon.');
@@ -193,6 +198,7 @@ export default function AdminDashboard() {
     setNewTool({ name: '', icon: '', color: '#000000' });
     setNewToolIconFile(null);
     setIsUploadingTool(false);
+    setToolUploadProgress(0);
     alert('Tool added successfully!');
   };
 
@@ -217,26 +223,20 @@ export default function AdminDashboard() {
     formData.append('image', file);
     try {
       const token = localStorage.getItem('portfolio_admin_token');
-      const res = await fetch(`${API_URL}/upload`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-        body: formData
-      });
-      if (res.ok) {
-        const data = await res.json();
-        updateWorkShowcaseGif(data.url);
-        alert('Work Showcase GIF updated successfully!');
-      } else {
-        alert('Failed to upload GIF');
-      }
+      setGifUploadProgress(0);
+      const data = await uploadWithProgress(`${API_URL}/upload`, formData, token, 'POST', (percent) => setGifUploadProgress(percent));
+      updateWorkShowcaseGif(data.url);
+      alert('Work Showcase GIF updated successfully!');
     } catch (err) {
-      alert('Error uploading GIF');
+      alert('Error uploading GIF: ' + (err.message || 'Unknown Error'));
     }
     setIsUploadingGif(false);
+    setGifUploadProgress(0);
   };
 
   const [isUploadingGallery, setIsUploadingGallery] = useState(false);
   const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
+  const [galleryUploadProgressPercent, setGalleryUploadProgressPercent] = useState(0);
   const dragItem = useRef();
   const dragOverItem = useRef();
 
@@ -266,17 +266,9 @@ export default function AdminDashboard() {
         const formData = new FormData();
         formData.append('image', file);
         try {
-          const res = await fetch(`${API_URL}/upload`, {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` },
-            body: formData
-          });
-          if (res.ok) {
-            const data = await res.json();
-            newImages.push({ type: 'image', content: data.url });
-          } else {
-            console.error("Failed to upload an image");
-          }
+          setGalleryUploadProgressPercent(0);
+          const data = await uploadWithProgress(`${API_URL}/upload`, formData, token, 'POST', (percent) => setGalleryUploadProgressPercent(percent));
+          newImages.push({ type: 'image', content: data.url });
         } catch (err) {
           console.error("Gallery upload error", err);
         }
@@ -287,6 +279,7 @@ export default function AdminDashboard() {
       }
       setIsUploadingGallery(false);
       setUploadProgress({ current: 0, total: 0 });
+      setGalleryUploadProgressPercent(0);
       e.target.value = null; // reset input
     };
 
@@ -352,7 +345,7 @@ export default function AdminDashboard() {
               {isUploadingGallery ? (
                 <div className="flex flex-col items-center">
                   <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 mb-2"></div>
-                  <p className="text-sm text-gray-700 font-semibold">Uploading {uploadProgress.current} of {uploadProgress.total} images...</p>
+                  <p className="text-sm text-gray-700 font-semibold">Uploading {uploadProgress.current} of {uploadProgress.total} images... {galleryUploadProgressPercent > 0 && `(${galleryUploadProgressPercent}%)`}</p>
                 </div>
               ) : (
                 <div className="flex items-center gap-3">
@@ -518,7 +511,7 @@ export default function AdminDashboard() {
                   {isUploadingGif ? (
                     <div className="flex flex-col items-center">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mb-2"></div>
-                      <p className="text-sm text-gray-700 font-semibold">Uploading...</p>
+                      <p className="text-sm text-gray-700 font-semibold">Uploading... {gifUploadProgress > 0 && `${gifUploadProgress}%`}</p>
                     </div>
                   ) : (
                     <>
@@ -586,8 +579,8 @@ export default function AdminDashboard() {
 
             {renderContentBuilder(newContentBlocks, setNewContentBlocks)}
 
-            <button type="submit" className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
-              Add Project
+            <button type="submit" disabled={isAddingProject} className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 disabled:bg-gray-600">
+              {isAddingProject ? `Adding Project... ${projectUploadProgress > 0 ? `(${projectUploadProgress}%)` : ''}` : 'Add Project'}
             </button>
           </form>
         </div>
@@ -617,8 +610,8 @@ export default function AdminDashboard() {
 
                     {renderContentBuilder(editingContentBlocks, setEditingContentBlocks)}
                     <div className="flex gap-2">
-                      <button type="submit" className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
-                        Save Changes
+                      <button type="submit" disabled={isUpdatingProject} className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 disabled:bg-gray-600">
+                        {isUpdatingProject ? `Saving... ${editProjectUploadProgress > 0 ? `(${editProjectUploadProgress}%)` : ''}` : 'Save Changes'}
                       </button>
                       <button type="button" onClick={() => setEditingProjectIndex(null)} className="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">
                         Cancel
@@ -680,7 +673,7 @@ export default function AdminDashboard() {
               <input type="color" className="w-10 h-10 rounded cursor-pointer" value={newTool.color} onChange={e => setNewTool({...newTool, color: e.target.value})} />
             </div>
             <button type="submit" disabled={isUploadingTool} className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 disabled:bg-gray-500">
-              {isUploadingTool ? 'Uploading...' : 'Add Tool'}
+              {isUploadingTool ? `Uploading... ${toolUploadProgress > 0 ? `(${toolUploadProgress}%)` : ''}` : 'Add Tool'}
             </button>
           </form>
           <div className="space-y-4">
